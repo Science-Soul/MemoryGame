@@ -21,6 +21,9 @@ public class MemoryGame : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SetCurrentDeckStyle(deckStyleA);
+        CardDisplay card = Instantiate(cardPrefab, container).GetComponent<CardDisplay>();
+        card.InitializeCard("Hearts");
         CreateShuffledSpriteList();
         FillGridWithCards();
     }
@@ -189,6 +192,31 @@ public class MemoryGame : MonoBehaviour
             int randomIndex = Random.Range(0, shuffledSprites.Count);
             shuffledSprites[i] = shuffledSprites[randomIndex];
             shuffledSprites[randomIndex] = temp;
+        }
+    }
+
+    public CardDataSO deckStyleA;
+    public CardDataSO deckStyleB;
+
+    private CardDataSO currentDeckStyle;
+
+    public void SetCurrentDeckStyle(CardDataSO newStyle)
+    {
+        currentDeckStyle = newStyle;
+        Debug.Log("Switched to new deck style: " + newStyle.name);
+
+
+    }
+
+    public Sprite GetPipSpriteForSuit(string suit)
+    {
+        switch (suit.ToLower())
+        {
+            case "hearts": return currentDeckStyle.heartsPip;
+            case "diamonds": return currentDeckStyle.diamondsPip;
+            case "clubs": return currentDeckStyle.clubsPip;
+            case "spades": return currentDeckStyle.spadesPip;
+            default: return null;
         }
     }
 }
