@@ -263,11 +263,10 @@ public class MemoryGame : MonoBehaviour
             foreach (Rank rank in Enum.GetValues(typeof(Rank)))
             {
                 GameObject card = Instantiate(cardPrefabs[(int)rank], container);
-                card.name = rank + "_" + suit.ToString();
+                card.name = ((int)rank + 2).ToString() + "_" + rank + "_" + suit.ToString();
                 card.GetComponent<RectTransform>().position = new Vector2((int)suit * 1.5f, ((int)rank) * 2);
                 if (card.TryGetComponent<CardDisplay>(out var cardComponent))
                 {
-                    Debug.Log("Card initialized");
                     cardComponent.InitializeCard(suit, rank);
                 }
             }
@@ -315,7 +314,6 @@ public class MemoryGame : MonoBehaviour
             if (s.sprite != null)
             {
                 highRankCardSpritesMap[s.suit][s.rank] = s.sprite;
-                Debug.Log($"{s.sprite} highRankCardSpritesMap[s.suit][s.rank] + {s.rank} {s.suit}");
             }
         }
     }
@@ -324,8 +322,6 @@ public class MemoryGame : MonoBehaviour
     {
         if (highRankCardSpritesMap.ContainsKey(suit) && highRankCardSpritesMap[suit].ContainsKey(rank))
         {
-            Debug.Log($"{rank} {suit}");
-            Debug.Log(highRankCardSpritesMap[suit][rank]);
             return highRankCardSpritesMap[suit][rank];
         }
         return null;
