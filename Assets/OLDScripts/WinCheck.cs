@@ -34,6 +34,9 @@ public class WinCheck : MonoBehaviour
 
     void UpdateSkillText()
     {
-        lvlText.text = $"LVL: {lvl}";
+        if (lvlText != null)
+        {
+            lvlText.text = $"LVL: {lvl}";
+        }
     }
 }

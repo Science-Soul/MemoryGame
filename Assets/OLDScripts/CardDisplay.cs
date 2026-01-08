@@ -7,18 +7,19 @@ using static MemoryGame;
 public class CardDisplay : MonoBehaviour
 {
     [SerializeField] List<TextMeshProUGUI> digits;
-    [SerializeField] Image characterImage;
-    public List<Image> pipImages;
-    private Image face;
-    public MemoryGame.CardSuit Suit;
-    public MemoryGame.Rank Rank;
+    public List<Image> pipImagesOnCard;
+    public Button button;
 
     private MemoryGame gameManager;
+    private Image face;
+    private CardSuit Suit;
+    private Rank Rank;
 
     private void Awake()
     {
         gameManager = FindAnyObjectByType<MemoryGame>();
         face = gameObject.GetComponent<Image>();
+        button = gameObject.GetComponent<Button>();
 
         TextMeshProUGUI[] textFields = GetComponentsInChildren<TextMeshProUGUI>();
         foreach (TextMeshProUGUI text in textFields)
@@ -26,7 +27,7 @@ public class CardDisplay : MonoBehaviour
             digits.Add(text);
         }
     }
-    public void InitializeCard(MemoryGame.CardSuit suit, MemoryGame.Rank rank)
+    public void InitializeCard(CardSuit suit, Rank rank)
     {
         Suit = suit;
         Rank = rank;
@@ -41,7 +42,6 @@ public class CardDisplay : MonoBehaviour
             Sprite desiredPipSprite = gameManager.GetPipSpriteForSuit(Suit);
             Sprite desiredEmptySprite = gameManager.GetEmptySpriteForSuit(Suit);
             Material desiredMat = gameManager.GetTextMaterialForSuit(Suit);
-            Sprite desiredHighRankFace = gameManager.GetHighRankSprite(Suit, Rank);
 
             if (desiredPipSprite != null && desiredEmptySprite != null && desiredMat != null)
             {
@@ -52,7 +52,7 @@ public class CardDisplay : MonoBehaviour
 
     public void UpdateCardVisuals(Sprite pipSprite, Sprite emptySprite, Material textMat)
     {
-        foreach (Image pip in pipImages)
+        foreach (Image pip in pipImagesOnCard)
         {
             if (pipSprite != null)
             {
@@ -74,7 +74,6 @@ public class CardDisplay : MonoBehaviour
         if (highRankSprite != null)
         {
             gameObject.GetComponent<Image>().sprite = highRankSprite;
-            Debug.Log($"{rank} {suit}");
         }
     }
 }
