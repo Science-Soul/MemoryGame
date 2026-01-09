@@ -1,17 +1,19 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Desk : MonoBehaviour
 {
-    public GameObject[] cardPrefabs;
+    [SerializeField] GameObject[] cardPrefabs;
     [SerializeField] int numberOfCardsToSearch = 2;
-    private List<GameObject> shuffledCardDeck;
+    private int numberOfSets;
+    private List<GameObject> shuffledDeck;
     private List<GameObject> openedCards;
 
-    //int xDim = 10;
-    int yDim = 4;
+    [SerializeField] DifficultLevels difficultLevel;
+    private DifficultLevels currentDifficult;
 
     private GridLayoutGroup gridLayout;
 
@@ -19,6 +21,8 @@ public class Desk : MonoBehaviour
     private void Awake()
     {
         openedCards = new List<GameObject>(numberOfCardsToSearch);
+        currentDifficult = difficultLevel;
+        numberOfSets = difficultLevel.NumberOfCardsOnDesk / numberOfCardsToSearch;
         GridLayoutInit();
     }
 
@@ -32,30 +36,43 @@ public class Desk : MonoBehaviour
     {
         CreateShuffledDeck();
 
-        for (int i = 0; i < shuffledCardDeck.Count; i++)
+        for (int i = 0; i < shuffledDeck.Count; i++)
         {
-            Instantiate(shuffledCardDeck[i], this.gameObject.GetComponent<RectTransform>());
+            Instantiate(shuffledDeck[i], this.gameObject.GetComponent<RectTransform>());
         }
     }
 
     private void CreateShuffledDeck()
     {
-        shuffledCardDeck = new List<GameObject>();
+        List<GameObject> shuffledCardSets = new List<GameObject>();
+        shuffledDeck = new List<GameObject>();
 
         foreach (var card in cardPrefabs)
         {
-            for (int i = 0; i < numberOfCardsToSearch; i++)
-            {
-                shuffledCardDeck.Add(card);
+            shuffledCardSets.Add(card);
+        }
+
+        ShuffleDeck(shuffledCardSets);
+
+        for (int i = 0; i < numberOfSets; i++)
+        {
+            for (int j = 0; j < numberOfCardsToSearch; j++) {
+                shuffledDeck.Add(shuffledCardSets[i]);
             }
         }
 
-        for (int i = 0; i < shuffledCardDeck.Count; i++)
+        ShuffleDeck(shuffledDeck);
+
+        void ShuffleDeck(List<GameObject> deck)
         {
-            GameObject temp = shuffledCardDeck[i];
-            int randomIndex = Random.Range(0, shuffledCardDeck.Count);
-            shuffledCardDeck[i] = shuffledCardDeck[randomIndex];
-            shuffledCardDeck[randomIndex] = temp;
+            for (int i = 0; i < deck.Count; i++)
+            {
+                GameObject temp = deck[i];
+                int randomIndex = Random.Range(0, deck.Count);
+                deck[i] = deck[randomIndex];
+                deck[randomIndex] = temp;
+            }
+            Debug.Log("Deck shuffled");
         }
     }
 
@@ -63,7 +80,7 @@ public class Desk : MonoBehaviour
     {
         gridLayout = GetComponent<GridLayoutGroup>();
         gridLayout.constraint = GridLayoutGroup.Constraint.FixedRowCount;
-        gridLayout.constraintCount = yDim;
+        gridLayout.constraintCount = difficultLevel.NumberOfRows;
     }
 
     public void OnCardClicked(GameObject card)
@@ -97,7 +114,8 @@ public class Desk : MonoBehaviour
             {
                 foreach (GameObject c in openedCards)
                 {
-                    c.GetComponent<CardLogic>().CloseCard();
+                    CardLogic cardLogic = c.GetComponent<CardLogic>();
+                    cardLogic.CloseCard();
                 }
                 openedCards.Clear();
             }
