@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI levelObjectivesText;
-
+    private Coroutine timerOffcoroutine;
     private TextMeshProUGUI timeText;
     public TextMeshProUGUI TimeText
     {
@@ -21,7 +20,7 @@ public class Timer : MonoBehaviour
         timeText = GetComponent<TextMeshProUGUI>();
         startTime = Time.time;
 
-        StartCoroutine(UpdateTimerRoutine());
+        timerOffcoroutine = StartCoroutine(UpdateTimerRoutine());
     }
 
     IEnumerator UpdateTimerRoutine()
@@ -37,5 +36,11 @@ public class Timer : MonoBehaviour
 
             yield return new WaitForSeconds(1);
         }
+    }
+
+    public void TimerOff()
+    {
+        StopCoroutine(timerOffcoroutine);
+        timerOffcoroutine = null;
     }
 }

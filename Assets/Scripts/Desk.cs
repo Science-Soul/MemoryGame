@@ -3,16 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Desk : MonoBehaviour
 {
-    [SerializeField] LevelObjectives levelObjectives;
-    [SerializeField] Timer timer;
-    [SerializeField] WinScreen winScreen;
+    [SerializeField] UIManager uiManager;
     [SerializeField] GameObject[] cardPrefabs;
-    [SerializeField] int numberOfCardsToSearch = 2;
+    [SerializeField][Range(2, 4)] int numberOfCardsToSearch = 2;
 
     private int numberOfSets;
     private List<GameObject> shuffledDeck;
@@ -24,21 +23,12 @@ public class Desk : MonoBehaviour
 
     private GridLayoutGroup gridLayout;
 
-    public enum GameState
-    {
-        WaitingForFirstCard,
-        WaitingForNextCard,
-        CheckingMatch
-    }
-
-    public GameState currentState = GameState.WaitingForFirstCard;
-
     private void Start()
     {
         openedCards = new List<GameObject>(numberOfCardsToSearch);
         currentDifficult = difficultLevel;
         numberOfSets = currentDifficult.NumberOfCardsOnDesk / numberOfCardsToSearch;
-        levelObjectives.Init("Находи по " + numberOfCardsToSearch + " одинаковые карты");
+        uiManager.levelObjectives.Init("Находи по " + numberOfCardsToSearch + " одинаковые карты");
         GridLayoutInit();
         GridFill();
     }
@@ -97,6 +87,9 @@ public class Desk : MonoBehaviour
 
     public void OnCardClicked(GameObject card)
     {
+        PlayerAchievments.ExpAdd();
+        uiManager.expText.text = PlayerAchievments.Exp.ToString();
+
         if (openedCards.Count < numberOfCardsToSearch)
         {
             card.GetComponent<CardLogic>().TurnOverCard();
@@ -116,8 +109,17 @@ public class Desk : MonoBehaviour
             numberOfMatchedCards += numberOfCardsToSearch;
             if (numberOfMatchedCards == currentDifficult.NumberOfCardsOnDesk)
             {
-                winScreen.ShowWinScreen(timer.TimeText.text);
-                OnGameWin?.Invoke();
+                uiManager.timer.TimerOff();
+
+                // Ждем завершения твинов
+                while (DOTween.PlayingTweens() != null && DOTween.PlayingTweens().Count > 0)
+                {
+                    yield return null;
+                }
+                Debug.Log("Все твины завершились. Окно победы.");
+
+                yield return new WaitForSeconds(0.1f);
+                uiManager.winScreen.ShowWinScreen(uiManager.timer.TimeText.text);
             }
         }
         else
@@ -131,6 +133,4 @@ public class Desk : MonoBehaviour
 
         openedCards.Clear();
     }
-
-    public static event Action OnGameWin; 
 }

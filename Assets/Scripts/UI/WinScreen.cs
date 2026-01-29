@@ -1,24 +1,24 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class WinScreen : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI resultText;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+
+    private CanvasGroup canvasGroup;
 
     public void ShowWinScreen(string timeText)
     {
+        canvasGroup = GetComponent<CanvasGroup>();
         gameObject.SetActive(true);
+        canvasGroup.alpha = 0;
         resultText.text = "Вы закончили за " + timeText;
-        Time.timeScale = 0;
+        canvasGroup.DOFade(1, 1);
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        
+        DOTween.Kill(this.gameObject);
     }
 }
