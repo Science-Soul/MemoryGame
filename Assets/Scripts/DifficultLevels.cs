@@ -15,4 +15,10 @@ public class DifficultLevels : ScriptableObject
     {
         get { return numberOfRows; }
     }
+
+    [SerializeField] float gridScale;
+    public float GridScale
+    {
+        get { return gridScale; }
+    }
 }

@@ -1,41 +1,52 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Desk : MonoBehaviour
 {
+    [SerializeField] LevelObjectives levelObjectives;
+    [SerializeField] Timer timer;
+    [SerializeField] WinScreen winScreen;
     [SerializeField] GameObject[] cardPrefabs;
     [SerializeField] int numberOfCardsToSearch = 2;
+
     private int numberOfSets;
     private List<GameObject> shuffledDeck;
     private List<GameObject> openedCards;
+    private int numberOfMatchedCards = 0;
 
     [SerializeField] DifficultLevels difficultLevel;
     private DifficultLevels currentDifficult;
 
     private GridLayoutGroup gridLayout;
 
+    public enum GameState
+    {
+        WaitingForFirstCard,
+        WaitingForNextCard,
+        CheckingMatch
+    }
 
-    private void Awake()
+    public GameState currentState = GameState.WaitingForFirstCard;
+
+    private void Start()
     {
         openedCards = new List<GameObject>(numberOfCardsToSearch);
         currentDifficult = difficultLevel;
-        numberOfSets = difficultLevel.NumberOfCardsOnDesk / numberOfCardsToSearch;
+        numberOfSets = currentDifficult.NumberOfCardsOnDesk / numberOfCardsToSearch;
+        levelObjectives.Init("Находи по " + numberOfCardsToSearch + " одинаковые карты");
         GridLayoutInit();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
         GridFill();
     }
 
     private void GridFill()
     {
         CreateShuffledDeck();
-
+        gameObject.transform.localScale = currentDifficult.GridScale * Vector3.one;
         for (int i = 0; i < shuffledDeck.Count; i++)
         {
             Instantiate(shuffledDeck[i], this.gameObject.GetComponent<RectTransform>());
@@ -56,7 +67,8 @@ public class Desk : MonoBehaviour
 
         for (int i = 0; i < numberOfSets; i++)
         {
-            for (int j = 0; j < numberOfCardsToSearch; j++) {
+            for (int j = 0; j < numberOfCardsToSearch; j++)
+            {
                 shuffledDeck.Add(shuffledCardSets[i]);
             }
         }
@@ -68,7 +80,7 @@ public class Desk : MonoBehaviour
             for (int i = 0; i < deck.Count; i++)
             {
                 GameObject temp = deck[i];
-                int randomIndex = Random.Range(0, deck.Count);
+                int randomIndex = UnityEngine.Random.Range(0, deck.Count);
                 deck[i] = deck[randomIndex];
                 deck[randomIndex] = temp;
             }
@@ -80,45 +92,45 @@ public class Desk : MonoBehaviour
     {
         gridLayout = GetComponent<GridLayoutGroup>();
         gridLayout.constraint = GridLayoutGroup.Constraint.FixedRowCount;
-        gridLayout.constraintCount = difficultLevel.NumberOfRows;
+        gridLayout.constraintCount = currentDifficult.NumberOfRows;
     }
 
     public void OnCardClicked(GameObject card)
     {
-        card.GetComponent<CardLogic>().OpenCard();
-        CheckMatch(card);
+        if (openedCards.Count < numberOfCardsToSearch)
+        {
+            card.GetComponent<CardLogic>().TurnOverCard();
+            openedCards.Add(card);
+            if (openedCards.Count == numberOfCardsToSearch)
+            {
+                StartCoroutine(CheckMatch(card));
+            }
+        }
     }
 
-    private void CheckMatch(GameObject card)
+    IEnumerator CheckMatch(GameObject card)
     {
-        openedCards.Add(card);
-        if (openedCards.Count == 1)
+        if (openedCards.All(x => x.name == openedCards[0].name))
         {
-            return;
+            Debug.Log("Найдено совпадение из " + numberOfCardsToSearch + " карт");
+            numberOfMatchedCards += numberOfCardsToSearch;
+            if (numberOfMatchedCards == currentDifficult.NumberOfCardsOnDesk)
+            {
+                winScreen.ShowWinScreen(timer.TimeText.text);
+                OnGameWin?.Invoke();
+            }
         }
         else
         {
-            if (card.name == openedCards[0].name)
+            yield return new WaitForSeconds(1);
+            foreach (GameObject c in openedCards)
             {
-                if (openedCards.Count == numberOfCardsToSearch)
-                {
-                    Debug.Log("Найдено совпадение из " + numberOfCardsToSearch + " карт");
-                    openedCards.Clear();
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else
-            {
-                foreach (GameObject c in openedCards)
-                {
-                    CardLogic cardLogic = c.GetComponent<CardLogic>();
-                    cardLogic.CloseCard();
-                }
-                openedCards.Clear();
+                c.GetComponent<CardLogic>().TurnOverCard();
             }
         }
+
+        openedCards.Clear();
     }
+
+    public static event Action OnGameWin; 
 }
