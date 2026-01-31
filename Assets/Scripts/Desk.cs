@@ -117,7 +117,8 @@ public class Desk : MonoBehaviour
 
                 yield return new WaitForSeconds(0.1f);
                 PlayerAchievments.ExpAdd();
-                uiManager.UpdateExpText(PlayerAchievments.Exp.ToString());
+                uiManager.UpdateExpUI(PlayerAchievments.Exp.ToString(), PlayerAchievments.PreviousExpForLevelUp, PlayerAchievments.CurrentExpForLevelUp, PlayerAchievments.Exp);
+                uiManager.UpdateMasteryText(PlayerAchievments.CurrentMastery);
                 uiManager.winScreen.ShowWinScreen(uiManager.timer.TimeText.text);
             }
         }

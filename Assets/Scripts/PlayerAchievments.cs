@@ -9,9 +9,14 @@ public static class PlayerAchievments
     const int MASTERY_DELTA = 10;
     const int MAX_LEVEL = 100;
 
-    private static int currentExpForLevelUp = BASE_EXP;
     private static int currentLevel = 1;
+    private static int currentExpForLevelUp = BASE_EXP;
+    public static int CurrentExpForLevelUp {  get { return currentExpForLevelUp; } }
+    private static int previousExpForLevelUp = 0;
+    public static int PreviousExpForLevelUp { get { return previousExpForLevelUp; } }
+
     private static string currentMastery;
+    public static string CurrentMastery {  get { return currentMastery; } }
 
     private static readonly string[] PLAYER_MASTERIES = new string[11]
     {
@@ -46,7 +51,7 @@ public static class PlayerAchievments
 
     public static void ExpAdd()
     {
-        Exp += EXP_FOR_LEVEL_COMPLETE * 10000;
+        Exp += EXP_FOR_LEVEL_COMPLETE * 100;
         Debug.Log("Current exp: " + exp);
         LevelUp();
     }
@@ -61,8 +66,9 @@ public static class PlayerAchievments
             MasteryUp();
 
             // Увеличиваем количество опыта, необходимого для следующего уровня
+            previousExpForLevelUp = currentExpForLevelUp;
             currentExpForLevelUp += (int)(BASE_EXP * Mathf.Pow(EXP_MULTIPLIER, currentLevel));
-            Debug.Log("До следующего уровня: " + currentExpForLevelUp);
+            Debug.Log("До следующего уровня: " + (currentExpForLevelUp - exp));
 
             LevelUp(); // Рекурсивно повышаем уровень, пока очки опыта не уравновесятся
         }
@@ -83,4 +89,5 @@ public static class PlayerAchievments
             Debug.Log("Новый ранг: " + currentMastery);
         }
     }
+
 }
