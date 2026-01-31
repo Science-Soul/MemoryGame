@@ -13,6 +13,7 @@ public class Timer : MonoBehaviour
 
 
     private float startTime;
+    private float endTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,7 +29,7 @@ public class Timer : MonoBehaviour
         while (true)
         {
             float t = Time.time - startTime;
-
+            endTime = t;
             string minutes = ((int)t / 60).ToString("00");
             string seconds = (t % 60).ToString("00");
 
@@ -42,5 +43,11 @@ public class Timer : MonoBehaviour
     {
         StopCoroutine(timerOffcoroutine);
         timerOffcoroutine = null;
+    }
+
+    public int TimeBonusMultiplier(int baseBonusTime)
+    {
+        int sec = baseBonusTime - (int)endTime;
+        return sec > 0 ? sec : 0;
     }
 }

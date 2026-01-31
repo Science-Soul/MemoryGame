@@ -17,6 +17,7 @@ public class Desk : MonoBehaviour
     private List<GameObject> shuffledDeck;
     private List<GameObject> openedCards;
     private int numberOfMatchedCards = 0;
+    private int baseBonusTime = 0;
 
     [SerializeField] DifficultLevels difficultLevel;
     private DifficultLevels currentDifficult;
@@ -27,6 +28,7 @@ public class Desk : MonoBehaviour
     {
         openedCards = new List<GameObject>(numberOfCardsToSearch);
         currentDifficult = difficultLevel;
+        this.baseBonusTime = currentDifficult.BaseBonusTime;
         numberOfSets = currentDifficult.NumberOfCardsOnDesk / numberOfCardsToSearch;
         uiManager.levelObjectives.Init("Находи по " + numberOfCardsToSearch + " одинаковые карты");
         GridLayoutInit();
@@ -74,7 +76,6 @@ public class Desk : MonoBehaviour
                 deck[i] = deck[randomIndex];
                 deck[randomIndex] = temp;
             }
-            Debug.Log("Deck shuffled");
         }
     }
 
@@ -113,9 +114,9 @@ public class Desk : MonoBehaviour
                 {
                     yield return null;
                 }
-                Debug.Log("Все твины завершились. Окно победы.");
 
                 yield return new WaitForSeconds(0.1f);
+                PlayerAchievments.AddTimeBonus(uiManager.timer.TimeBonusMultiplier(baseBonusTime));
                 PlayerAchievments.ExpAdd();
                 uiManager.UpdateExpUI(PlayerAchievments.Exp.ToString(), PlayerAchievments.PreviousExpForLevelUp, PlayerAchievments.CurrentExpForLevelUp, PlayerAchievments.Exp);
                 uiManager.UpdateMasteryText(PlayerAchievments.CurrentMastery);

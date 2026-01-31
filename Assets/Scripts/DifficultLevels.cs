@@ -21,4 +21,10 @@ public class DifficultLevels : ScriptableObject
     {
         get { return gridScale; }
     }
+
+    [SerializeField] int baseBonusTime;
+    public int BaseBonusTime
+    {
+        get { return baseBonusTime; }
+    }
 }

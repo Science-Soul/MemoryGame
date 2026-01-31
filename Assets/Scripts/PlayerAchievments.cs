@@ -4,6 +4,7 @@ using UnityEngine;
 public static class PlayerAchievments
 {
     const int BASE_EXP = 100;
+    const int BASE_TIME_BONUS = 10;
     const float EXP_MULTIPLIER = 1.05f;
     const int EXP_FOR_LEVEL_COMPLETE = 100;
     const int MASTERY_DELTA = 10;
@@ -51,7 +52,7 @@ public static class PlayerAchievments
 
     public static void ExpAdd()
     {
-        Exp += EXP_FOR_LEVEL_COMPLETE * 100;
+        Exp += EXP_FOR_LEVEL_COMPLETE;
         Debug.Log("Current exp: " + exp);
         LevelUp();
     }
@@ -90,4 +91,11 @@ public static class PlayerAchievments
         }
     }
 
+    public static void AddTimeBonus(int seconds)
+    {
+        int expBonus = BASE_TIME_BONUS * seconds;
+        exp += expBonus;
+        Debug.Log("Бонус за время: " + expBonus);
+        Debug.Log("До следующего уровня: " + (currentExpForLevelUp - exp));
+    }
 }
