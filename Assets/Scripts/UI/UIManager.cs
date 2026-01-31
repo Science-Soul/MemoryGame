@@ -19,4 +19,9 @@ public class UIManager : MonoBehaviour
     {
         
     }
+
+    public void UpdateExpText(string newExpText)
+    {
+        this.expText.text = newExpText;
+    }
 }

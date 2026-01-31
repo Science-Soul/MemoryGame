@@ -87,9 +87,6 @@ public class Desk : MonoBehaviour
 
     public void OnCardClicked(GameObject card)
     {
-        PlayerAchievments.ExpAdd();
-        uiManager.expText.text = PlayerAchievments.Exp.ToString();
-
         if (openedCards.Count < numberOfCardsToSearch)
         {
             card.GetComponent<CardLogic>().TurnOverCard();
@@ -119,6 +116,8 @@ public class Desk : MonoBehaviour
                 Debug.Log("Все твины завершились. Окно победы.");
 
                 yield return new WaitForSeconds(0.1f);
+                PlayerAchievments.ExpAdd();
+                uiManager.UpdateExpText(PlayerAchievments.Exp.ToString());
                 uiManager.winScreen.ShowWinScreen(uiManager.timer.TimeText.text);
             }
         }
