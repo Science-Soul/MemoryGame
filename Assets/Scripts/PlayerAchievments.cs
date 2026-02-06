@@ -1,23 +1,28 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class PlayerAchievments
 {
-    const int BASE_EXP = 100;
-    const int BASE_TIME_BONUS = 10;
-    const float EXP_MULTIPLIER = 1.05f;
-    const int EXP_FOR_LEVEL_COMPLETE = 100;
-    const int MASTERY_DELTA = 10;
-    const int MAX_LEVEL = 100;
+    public const int BASE_EXP = 100;
+    public const int BASE_TIME_BONUS = 10;
+    public const float EXP_MULTIPLIER = 1.05f;
+    public const int EXP_FOR_LEVEL_COMPLETE = 100;
+    public const int MASTERY_DELTA = 10;
+    public const int MAX_LEVEL = 100;
 
     private static int currentLevel = 1;
+    public static int CurrentLevel
+    {
+        get { return currentLevel; }
+    }
     private static int currentExpForLevelUp = BASE_EXP;
-    public static int CurrentExpForLevelUp {  get { return currentExpForLevelUp; } }
+    public static int CurrentExpForLevelUp { get { return currentExpForLevelUp; } }
     private static int previousExpForLevelUp = 0;
     public static int PreviousExpForLevelUp { get { return previousExpForLevelUp; } }
 
     private static string currentMastery;
-    public static string CurrentMastery {  get { return currentMastery; } }
+    public static string CurrentMastery { get { return currentMastery; } }
 
     private static readonly string[] PLAYER_MASTERIES = new string[11]
     {
@@ -41,20 +46,23 @@ public static class PlayerAchievments
         set { exp = value; }
     }
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void Init()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    public static void Init()
     {
-        exp = 0;
-        currentExpForLevelUp = BASE_EXP;
-        currentLevel = 1;
-        currentMastery = PLAYER_MASTERIES[0];
+        exp = PlayerPrefs.GetFloat("exp_saved", 0);
+        currentExpForLevelUp = PlayerPrefs.GetInt("currentExpForLevelUp_saved", BASE_EXP);
+        currentLevel = PlayerPrefs.GetInt("level_saved", 1);
+        currentMastery = PlayerPrefs.GetString("mastery_saved", "1");
     }
 
-    public static void ExpAdd()
+    public static event Action ExpAdded;
+    public static void ExpAdd(int expAdditional)
     {
-        Exp += EXP_FOR_LEVEL_COMPLETE;
+        Exp += expAdditional;
+        PlayerPrefs.SetFloat("exp_saved", exp);
         Debug.Log("Current exp: " + exp);
         LevelUp();
+        ExpAdded?.Invoke();
     }
 
     private static void LevelUp()
@@ -62,13 +70,17 @@ public static class PlayerAchievments
         if (exp >= currentExpForLevelUp && currentLevel < MAX_LEVEL)
         {
             currentLevel++;
-            Debug.Log("Новый уровень: " +  currentLevel);
+            PlayerPrefs.SetInt("level_saved", currentLevel);
+            Debug.Log("Сохранено значение уровня " +  currentLevel);
+            Debug.Log("Новый уровень: " + currentLevel);
 
             MasteryUp();
 
             // Увеличиваем количество опыта, необходимого для следующего уровня
             previousExpForLevelUp = currentExpForLevelUp;
             currentExpForLevelUp += (int)(BASE_EXP * Mathf.Pow(EXP_MULTIPLIER, currentLevel));
+            PlayerPrefs.SetInt("previousExpForLevelUp_saved", previousExpForLevelUp);
+            PlayerPrefs.SetInt("currentExpForLevelUp_saved", currentExpForLevelUp);
             Debug.Log("До следующего уровня: " + (currentExpForLevelUp - exp));
 
             LevelUp(); // Рекурсивно повышаем уровень, пока очки опыта не уравновесятся
@@ -87,13 +99,13 @@ public static class PlayerAchievments
         if (currentMastery != PLAYER_MASTERIES[masteryIndex])
         {
             currentMastery = PLAYER_MASTERIES[masteryIndex];
+            PlayerPrefs.SetString("mastery_saved", currentMastery);
             Debug.Log("Новый ранг: " + currentMastery);
         }
     }
 
-    public static void AddTimeBonus(int seconds)
+    public static void AddTimeBonus(int expBonus)
     {
-        int expBonus = BASE_TIME_BONUS * seconds;
         exp += expBonus;
         Debug.Log("Бонус за время: " + expBonus);
         Debug.Log("До следующего уровня: " + (currentExpForLevelUp - exp));

@@ -5,7 +5,9 @@ using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static PlayerAchievments;
 
 public class Desk : MonoBehaviour
 {
@@ -30,9 +32,16 @@ public class Desk : MonoBehaviour
         currentDifficult = difficultLevel;
         this.baseBonusTime = currentDifficult.BaseBonusTime;
         numberOfSets = currentDifficult.NumberOfCardsOnDesk / numberOfCardsToSearch;
+        uiManager.UpdateUI();
         uiManager.levelObjectives.Init("Находи по " + numberOfCardsToSearch + " одинаковые карты");
         GridLayoutInit();
         GridFill();
+        ExpAdded += OnExpAdded;
+    }
+
+    private void OnDestroy()
+    {
+        ExpAdded -= OnExpAdded;
     }
 
     private void GridFill()
@@ -103,6 +112,7 @@ public class Desk : MonoBehaviour
     {
         if (openedCards.All(x => x.name == openedCards[0].name))
         {
+            ExpAdd(numberOfCardsToSearch * numberOfCardsToSearch);
             Debug.Log("Найдено совпадение из " + numberOfCardsToSearch + " карт");
             numberOfMatchedCards += numberOfCardsToSearch;
             if (numberOfMatchedCards == currentDifficult.NumberOfCardsOnDesk)
@@ -116,11 +126,12 @@ public class Desk : MonoBehaviour
                 }
 
                 yield return new WaitForSeconds(0.1f);
-                PlayerAchievments.AddTimeBonus(uiManager.timer.TimeBonusMultiplier(baseBonusTime));
-                PlayerAchievments.ExpAdd();
-                uiManager.UpdateExpUI(PlayerAchievments.Exp.ToString(), PlayerAchievments.PreviousExpForLevelUp, PlayerAchievments.CurrentExpForLevelUp, PlayerAchievments.Exp);
-                uiManager.UpdateMasteryText(PlayerAchievments.CurrentMastery);
-                uiManager.winScreen.ShowWinScreen(uiManager.timer.TimeText.text);
+                int bonus = BASE_TIME_BONUS * uiManager.timer.TimeBonusMultiplier(baseBonusTime);
+                AddTimeBonus(bonus);
+                ExpAdd(EXP_FOR_LEVEL_COMPLETE);
+                uiManager.UpdateExpUI(Exp, PreviousExpForLevelUp, CurrentExpForLevelUp);
+                uiManager.UpdateMasteryText(CurrentLevel, CurrentMastery);
+                uiManager.winScreen.ShowWinScreen(EXP_FOR_LEVEL_COMPLETE, bonus);
             }
         }
         else
@@ -133,5 +144,10 @@ public class Desk : MonoBehaviour
         }
 
         openedCards.Clear();
+    }
+
+    void OnExpAdded()
+    {
+        uiManager.UpdateUI();
     }
 }

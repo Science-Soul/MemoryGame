@@ -1,36 +1,38 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public TextMeshProUGUI masteryText;
+    public TextMeshProUGUI masteryLevelText;
+    public TextMeshProUGUI masteryRankText;
     public TextMeshProUGUI expText;
     public Slider expSlider;
     public LevelObjectives levelObjectives;
     public Timer timer;
     public WinScreen winScreen;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void UpdateExpUI(float newExp, int oldExpForLevelUp, int newExpForLevelUp)
     {
-        
+        this.expText.text = ((int)newExp).ToString();
+        expSlider.value = (newExp - oldExpForLevelUp) / (newExpForLevelUp - oldExpForLevelUp);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateMasteryText(int newLevel, string newMasteryText)
     {
-        
+        this.masteryLevelText.text = "Уровень мастерства " + newLevel.ToString();
+        this.masteryRankText.text = newMasteryText;
     }
 
-    public void UpdateExpUI(string newExpText, int oldExpForLevelUp, int newExpForLevelUp, float currentExp)
+    public void UpdateUI()
     {
-        this.expText.text = newExpText;
-        expSlider.value = (currentExp - oldExpForLevelUp) / (newExpForLevelUp - oldExpForLevelUp);
+        UpdateExpUI(PlayerPrefs.GetFloat("exp_saved"), PlayerPrefs.GetInt("previousExpForLevelUp_saved", 0), PlayerPrefs.GetInt("currentExpForLevelUp_saved", 0));
+        UpdateMasteryText(PlayerPrefs.GetInt("level_saved", 1), PlayerPrefs.GetString("mastery_saved"));
     }
 
-    public void UpdateMasteryText(string newMasteryText)
+    public void RestartLevel()
     {
-        this.masteryText.text = newMasteryText;
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }

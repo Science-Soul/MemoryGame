@@ -11,7 +11,7 @@ public class CardLogic : MonoBehaviour
     [SerializeField] float animDuration = 0.25f;
     [SerializeField] float scale = 0.5f;
 
-    private void Awake()
+    private void Start()
     {
         desk = FindAnyObjectByType<Desk>();
         back = gameObject.transform.Find("back").gameObject;
