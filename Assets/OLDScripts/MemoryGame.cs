@@ -243,6 +243,11 @@ public class MemoryGame : MonoBehaviour
         }
     }
 
+    public Sprite GetBackSprite()
+    {
+        return currentDeckStyle.back;
+    }
+
     public Material GetTextMaterialForSuit(CardSuit suit)
     {
         switch (suit)

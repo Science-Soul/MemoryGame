@@ -12,6 +12,7 @@ public class CardDisplay : MonoBehaviour
 
     private MemoryGame gameManager;
     private Image face;
+    private Image back;
     private CardSuit Suit;
     private Rank Rank;
 
@@ -19,6 +20,8 @@ public class CardDisplay : MonoBehaviour
     {
         gameManager = FindAnyObjectByType<MemoryGame>();
         face = gameObject.GetComponent<Image>();
+        back = gameObject.transform.Find("back").GetComponent<Image>();
+        Debug.Log(back);
         button = gameObject.GetComponent<Button>();
 
         TextMeshProUGUI[] textFields = GetComponentsInChildren<TextMeshProUGUI>();
@@ -41,16 +44,17 @@ public class CardDisplay : MonoBehaviour
         {
             Sprite desiredPipSprite = gameManager.GetPipSpriteForSuit(Suit);
             Sprite desiredEmptySprite = gameManager.GetEmptySpriteForSuit(Suit);
+            Sprite desiredBackSprite = gameManager.GetBackSprite();
             Material desiredMat = gameManager.GetTextMaterialForSuit(Suit);
 
-            if (desiredPipSprite != null && desiredEmptySprite != null && desiredMat != null)
+            if (desiredPipSprite != null && desiredEmptySprite != null && desiredBackSprite != null && desiredMat != null)
             {
-                UpdateCardVisuals(desiredPipSprite, desiredEmptySprite, desiredMat);
+                UpdateCardVisuals(desiredPipSprite, desiredEmptySprite, desiredBackSprite, desiredMat);
             }
         }
     }
 
-    public void UpdateCardVisuals(Sprite pipSprite, Sprite emptySprite, Material textMat)
+    public void UpdateCardVisuals(Sprite pipSprite, Sprite emptySprite, Sprite backSprite, Material textMat)
     {
         foreach (Image pip in pipImagesOnCard)
         {
@@ -66,6 +70,7 @@ public class CardDisplay : MonoBehaviour
         }
 
         face.sprite = emptySprite;
+        back.sprite = backSprite;
     }
 
     private void ReplaceHighRankSprite(CardSuit suit, Rank rank)
