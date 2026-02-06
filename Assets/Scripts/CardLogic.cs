@@ -8,8 +8,13 @@ public class CardLogic : MonoBehaviour
     private Desk desk;
     private Button button;
 
-    [SerializeField] float animDuration = 0.25f;
-    [SerializeField] float scale = 0.5f;
+    public float animDuration = 0.25f;
+    public float scale = 0.5f;
+    
+    private float animAmplitude = 5f;
+    private float animPeriod = 1f;
+
+
 
     private void Start()
     {
@@ -28,11 +33,17 @@ public class CardLogic : MonoBehaviour
 
     private void CardAnimation(float endScale, float duration)
     {
-        gameObject.transform.DOScale(0, duration).SetEase(Ease.OutElastic).OnComplete(() =>
+        gameObject.transform.DOScale(0, duration).SetEase(Ease.InOutElastic, animAmplitude, animPeriod).OnComplete(() =>
         {
             back.SetActive(!back.activeInHierarchy);
-            gameObject.transform.DOScale(endScale, duration).SetEase(Ease.InElastic);
+            gameObject.transform.DOScale(endScale, duration).SetEase(Ease.InOutElastic, animAmplitude, animPeriod);
         });
+    }
+
+    public void InitAnim()
+    {
+        gameObject.transform.localScale = Vector3.zero;
+        gameObject.transform.DOScale(scale, animDuration * 2).SetEase(Ease.InOutElastic, animAmplitude, animPeriod);
     }
 
     private void OnDestroy()

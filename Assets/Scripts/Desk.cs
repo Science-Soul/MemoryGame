@@ -42,6 +42,7 @@ public class Desk : MonoBehaviour
     private void OnDestroy()
     {
         ExpAdded -= OnExpAdded;
+        DOTween.Kill(this.gameObject);
     }
 
     private void GridFill()
@@ -50,7 +51,9 @@ public class Desk : MonoBehaviour
         gameObject.transform.localScale = currentDifficult.GridScale * Vector3.one;
         for (int i = 0; i < shuffledDeck.Count; i++)
         {
-            Instantiate(shuffledDeck[i], this.gameObject.GetComponent<RectTransform>());
+            GameObject cardGO = Instantiate(shuffledDeck[i], this.gameObject.GetComponent<RectTransform>());
+            CardLogic card = cardGO.GetComponent<CardLogic>();
+            card.InitAnim();
         }
     }
 
