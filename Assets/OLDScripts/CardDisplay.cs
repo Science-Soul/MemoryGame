@@ -71,6 +71,8 @@ public class CardDisplay : MonoBehaviour
 
         face.sprite = emptySprite;
         back.sprite = backSprite;
+        back.type = Image.Type.Simple;
+        back.SetNativeSize();
     }
 
     private void ReplaceHighRankSprite(CardSuit suit, Rank rank)

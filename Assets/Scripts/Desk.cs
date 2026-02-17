@@ -7,7 +7,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Cysharp.Threading.Tasks;
 using static PlayerAchievments;
+using Random = UnityEngine.Random;
+using System.Threading;
+using Unity.VisualScripting;
 
 public class Desk : MonoBehaviour
 {
@@ -15,9 +19,10 @@ public class Desk : MonoBehaviour
     [SerializeField] GameObject[] cardPrefabs;
     [SerializeField][Range(2, 4)] int numberOfCardsToSearch = 2;
 
-    private int numberOfSets;
     private List<GameObject> shuffledDeck;
+    private List<GameObject> allCards;
     private List<GameObject> openedCards;
+    private int numberOfSets;
     private int numberOfMatchedCards = 0;
     private int baseBonusTime = 0;
 
@@ -37,24 +42,37 @@ public class Desk : MonoBehaviour
         GridLayoutInit();
         GridFill();
         ExpAdded += OnExpAdded;
+
+        CreateBonusAtRandomCard().Forget();
     }
 
     private void OnDestroy()
     {
         ExpAdded -= OnExpAdded;
         DOTween.Kill(this.gameObject);
+
+        foreach (var cts in _activeBonusesTokens.Values)
+        {
+            cts.Cancel();
+            cts.Dispose();
+        }
+        _activeBonusesTokens.Clear();
     }
 
     private void GridFill()
     {
+        allCards = new();
         CreateShuffledDeck();
         gameObject.transform.localScale = currentDifficult.GridScale * Vector3.one;
         for (int i = 0; i < shuffledDeck.Count; i++)
         {
             GameObject cardGO = Instantiate(shuffledDeck[i], this.gameObject.GetComponent<RectTransform>());
+            allCards.Add(cardGO);
             CardLogic card = cardGO.GetComponent<CardLogic>();
             card.InitAnim();
         }
+
+        Debug.Log($"Всего карт на столе {allCards.Count}");
     }
 
     private void CreateShuffledDeck()
@@ -117,6 +135,15 @@ public class Desk : MonoBehaviour
         {
             ExpAdd(numberOfCardsToSearch * numberOfCardsToSearch);
             Debug.Log("Найдено совпадение из " + numberOfCardsToSearch + " карт");
+
+            foreach (var c in openedCards)
+            {
+                if (_activeBonusesTokens.TryGetValue(c, out var cts))
+                {
+                    cts.Cancel(); // Останавливаем таймер в RunBonusLogic
+                }
+            }
+
             numberOfMatchedCards += numberOfCardsToSearch;
             if (numberOfMatchedCards == currentDifficult.NumberOfCardsOnDesk)
             {
@@ -152,5 +179,52 @@ public class Desk : MonoBehaviour
     void OnExpAdded()
     {
         uiManager.UpdateUI();
+    }
+
+    private Dictionary<GameObject, CancellationTokenSource> _activeBonusesTokens = new();
+    async UniTaskVoid CreateBonusAtRandomCard()
+    {
+        GameObject randomCard = allCards[Random.Range(0, allCards.Count)];
+        await RunBonusLogic(randomCard);
+    }
+
+    async UniTask RunBonusLogic(GameObject card)
+    {
+        // Создаем токен, который отменится И при клике, И при удалении объекта
+        var manualCts = new CancellationTokenSource();
+        var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
+            manualCts.Token,
+            this.GetCancellationTokenOnDestroy()
+        );
+
+        _activeBonusesTokens[card] = manualCts;
+
+
+        try
+        {
+            Debug.Log($"<color=green>Бонус на карте: {card.name}</color>");
+
+            await UniTask.Delay(TimeSpan.FromSeconds(10), cancellationToken: linkedCts.Token);
+
+            Debug.Log("Время вышло. Бонус исчез.");
+        }
+        catch (OperationCanceledException)
+        {
+            // Проверяем, была ли это ручная отмена (клик) или уничтожение объекта
+            if (!this.IsDestroyed())
+            {
+                Debug.Log($"<color=yellow>Успех!</color> Бонус на {card.name} пойман!");
+            }
+        }
+        finally
+        {
+            // Очищаем токены и словарь
+            manualCts.Dispose();
+            linkedCts.Dispose();
+            if (_activeBonusesTokens.TryGetValue(card, out var storedCts) && storedCts == manualCts)
+            {
+                _activeBonusesTokens.Remove(card);
+            }
+        }
     }
 }
