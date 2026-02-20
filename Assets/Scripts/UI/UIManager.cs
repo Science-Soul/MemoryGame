@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public LevelObjectives levelObjectives;
     public Timer timer;
     public WinScreen winScreen;
+    public Canvas canvas;
 
     public void UpdateExpUI(float newExp, int oldExpForLevelUp, int newExpForLevelUp)
     {

@@ -15,7 +15,6 @@ public class CardLogic : MonoBehaviour
     private float animPeriod = 1f;
 
 
-
     private void Start()
     {
         desk = FindAnyObjectByType<Desk>();
@@ -31,9 +30,10 @@ public class CardLogic : MonoBehaviour
         CardAnimation(scale, animDuration);
     }
 
+    public Tween tween;
     private void CardAnimation(float endScale, float duration)
     {
-        gameObject.transform.DOScale(0, duration).SetEase(Ease.InOutElastic, animAmplitude, animPeriod).OnComplete(() =>
+        tween = gameObject.transform.DOScale(0, duration).SetEase(Ease.InOutElastic, animAmplitude, animPeriod).OnComplete(() =>
         {
             back.SetActive(!back.activeInHierarchy);
             gameObject.transform.DOScale(endScale, duration).SetEase(Ease.InOutElastic, animAmplitude, animPeriod);

@@ -11,7 +11,7 @@ using Cysharp.Threading.Tasks;
 using static PlayerAchievments;
 using Random = UnityEngine.Random;
 using System.Threading;
-using Unity.VisualScripting;
+using Zenject;
 
 public class Desk : MonoBehaviour
 {
@@ -133,11 +133,18 @@ public class Desk : MonoBehaviour
             {
                 if (_activeBonuses.TryGetValue(c, out var bonus))
                 {
-                        if (bonus != null) bonus.Collect(); // Бонус сам все сделает
-                        _activeBonuses.Remove(c);
+                    if (bonus != null)
+                    {
+                        yield return new WaitUntil(() => !openedCards.Any(x => DOTween.IsTweening(x.transform)));
+                        bonus.Collect();
+                    }
+                    _activeBonuses.Remove(c);
                 }
+
+                allCards.Remove(c);
             }
 
+            Debug.Log("Всего карт " + allCards.Count);
             numberOfMatchedCards += numberOfCardsToSearch;
             if (numberOfMatchedCards == currentDifficult.NumberOfCardsOnDesk)
             {
@@ -175,66 +182,15 @@ public class Desk : MonoBehaviour
         uiManager.UpdateUI();
     }
 
+    [Inject] private DiContainer _container;
     [SerializeField] BonusItem bonusPrefab;
-    [SerializeField] float bonusDurationInSec = 5f;
     private Dictionary<GameObject, BonusItem> _activeBonuses = new();
-    
 
     private void CreateBonusAtRandomCard()
     {
         GameObject randomCard = allCards[Random.Range(0, allCards.Count)];
-        BonusItem bonusInstance = Instantiate(bonusPrefab, randomCard.transform);
+        BonusItem bonusInstance = _container.InstantiatePrefabForComponent<BonusItem>(bonusPrefab, randomCard.transform);
         _activeBonuses[randomCard] = bonusInstance;
         bonusInstance.Activate(this.GetCancellationTokenOnDestroy(), randomCard.GetCancellationTokenOnDestroy());
     }
-
-    /*private async UniTask RunBonusLogic(GameObject card, BonusItem bonus)
-    {
-        var manualCts = new CancellationTokenSource();
-        _activeBonusesTokens[card] = manualCts;
-
-        var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
-            manualCts.Token,
-            card.GetCancellationTokenOnDestroy(),
-            this.GetCancellationTokenOnDestroy()
-        );
-
-        try
-        {
-            // Просто запускаем логику ВНУТРИ уже созданного бонуса
-            await bonus.StartBonusLifecycle(linkedCts.Token);
-
-            Debug.Log("Время бонуса вышло");
-        }
-        catch (OperationCanceledException)
-        {
-            // 2. Если менеджер УЖЕ уничтожен (смена сцены) — ВЫХОДИМ НЕМЕДЛЕННО
-            // Мы не трогаем переменные, не пишем в консоль, просто исчезаем.
-            if (this == null || this.GetCancellationTokenOnDestroy().IsCancellationRequested)
-                return;
-
-            // 3. Если менеджер жив, проверяем: был ли это клик?
-            if (card != null && manualCts.IsCancellationRequested)
-            {
-                Debug.Log("<color=yellow>БОНУС СОБРАН!</color>");
-                // Награда...
-            }
-        }
-        finally
-        {
-            // Сначала отменяем связанный источник, чтобы остановить все вложенные задачи
-            linkedCts.Cancel();
-
-            // Удаляем из словаря ПЕРЕД тем, как уничтожать токен
-            if (this != null && card != null)
-            {
-                _activeBonusesTokens.Remove(card);
-            }
-
-            // 5. Уничтожаем источники только если менеджер еще существует
-            // и делаем это максимально осторожно
-            linkedCts.Dispose();
-            manualCts.Dispose();
-        }
-    }*/
 }
