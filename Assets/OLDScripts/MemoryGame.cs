@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
 using TMPro;
-using static UnityEngine.EventSystems.EventTrigger;
+
 
 public class MemoryGame : MonoBehaviour
 {
@@ -28,12 +28,8 @@ public class MemoryGame : MonoBehaviour
     void Start()
     {
         SetCurrentDeckStyle(deckStyleA);
-        //CardDisplay card = Instantiate(cardPrefab, container).GetComponent<CardDisplay>();
-        //card.InitializeCard("Hearts");
 
         GenerateDeck();
-        //CreateShuffledSpriteList();
-        //FillGridWithCards();
     }
 
     private void FillGridWithCards()

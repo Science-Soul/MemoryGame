@@ -37,9 +37,8 @@ public class BonusPopup : MonoBehaviour
         canvasGroup.alpha = 0;
         canvasGroup.DOFade(1, 0.5f).SetUpdate(true);
 
-        // DOTween: Бесконечное вращение 3D модели
-        _rotationTween = modelRoot.DORotate(new Vector3(0, 360, 0), 2f, RotateMode.FastBeyond360)
-            .SetLoops(-1, LoopType.Incremental)
+        // DOTween: Вращение 3D модели
+        _rotationTween = modelRoot.DORotate(new Vector3(0, 180, 0), 1.5f, RotateMode.WorldAxisAdd)
             .SetEase(Ease.Linear)
             .SetUpdate(true);
 
