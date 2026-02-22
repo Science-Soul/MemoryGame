@@ -12,6 +12,13 @@ public class BonusItem : MonoBehaviour
     [SerializeField] private float lifetime = 3f;
 
     private CancellationTokenSource _cts;
+    private BonusCard _myCard;
+
+    public void Init(BonusCard card)
+    {
+        _myCard = card; // Сообщаем ему бонусную карту при инициализации
+        Debug.Log("Бонусная карта " + _myCard.name);
+    }
 
     // Инициализация: бонус сам создает свой токен и связывает его с картой/менеджером
     public void Activate(CancellationToken managerToken, CancellationToken cardToken)
@@ -49,8 +56,8 @@ public class BonusItem : MonoBehaviour
     [Inject] private SignalBus _signalBus;
     public void Collect()
     {
-        // Просто "стреляем" сигналом
-        _signalBus.Fire<BonusCollectedSignal>();
+        // Просто "стреляем" сигналом и сообщаем, какая бонусная карта открыта
+        _signalBus.Fire(new BonusCollectedSignal { unlockedCard = _myCard });
         Destroy(gameObject);
     }
 

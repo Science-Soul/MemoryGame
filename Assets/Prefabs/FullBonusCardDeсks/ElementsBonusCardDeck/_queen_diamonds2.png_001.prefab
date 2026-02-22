@@ -126,7 +126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5470796490848533716}
-  - component: {fileID: 5988439351297613871}
+  - component: {fileID: 2557333520171202357}
   m_Layer: 5
   m_Name: _queen_diamonds2.png_001
   m_TagString: Untagged
@@ -150,12 +150,12 @@ RectTransform:
   - {fileID: 7100788604721519972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5988439351297613871
+--- !u!114 &2557333520171202357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,11 +164,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2897794607455335154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ea1bb768bdcbf94d99ec3723124c3c0, type: 3}
+  m_Script: {fileID: 11500000, guid: ad707bed25fa7434cbf713986785c884, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BonusCardDisplay
-  _rendererFace: {fileID: 7262818339827983473}
-  _rendererBack: {fileID: 2786764588682940524}
+  m_EditorClassIdentifier: Assembly-CSharp::BonusCard
 --- !u!1 &7436015953682540967
 GameObject:
   m_ObjectHideFlags: 0

@@ -183,14 +183,24 @@ public class Desk : MonoBehaviour
     }
 
     [Inject] private DiContainer _container;
+    [Inject] private CollectionService _collectionService;
     [SerializeField] BonusItem bonusPrefab;
     private Dictionary<GameObject, BonusItem> _activeBonuses = new();
 
     private void CreateBonusAtRandomCard()
     {
-        GameObject randomCard = allCards[Random.Range(0, allCards.Count)];
-        BonusItem bonusInstance = _container.InstantiatePrefabForComponent<BonusItem>(bonusPrefab, randomCard.transform);
-        _activeBonuses[randomCard] = bonusInstance;
-        bonusInstance.Activate(this.GetCancellationTokenOnDestroy(), randomCard.GetCancellationTokenOnDestroy());
+        BonusCard nextBonusCard = _collectionService.GetNextLockedCard();
+        if (nextBonusCard != null)
+        {
+            GameObject randomCard = allCards[Random.Range(0, allCards.Count)];
+            BonusItem bonusInstance = _container.InstantiatePrefabForComponent<BonusItem>(bonusPrefab, randomCard.transform);
+            _activeBonuses[randomCard] = bonusInstance;
+            bonusInstance.Init(nextBonusCard);
+            bonusInstance.Activate(this.GetCancellationTokenOnDestroy(), randomCard.GetCancellationTokenOnDestroy());
+        }
+        else
+        {
+            Debug.LogWarning("¬се карты уже открыты, бонуса не будет");
+        }
     }
 }

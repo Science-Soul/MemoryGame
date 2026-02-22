@@ -1,4 +1,4 @@
 public struct BonusCollectedSignal
 {
-    public string BonusId;
+    public BonusCard unlockedCard;
 }

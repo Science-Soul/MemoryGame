@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.U2D;
 
 public class BonusCardDisplay : MonoBehaviour
 {
@@ -9,24 +8,13 @@ public class BonusCardDisplay : MonoBehaviour
     [SerializeField] Renderer _rendererFace;
     [SerializeField] Renderer _rendererBack;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-
     public void Init(Sprite spriteFace, Sprite spriteBack)
     {
         _spriteFace = spriteFace;
         ApplyToQuad(_spriteFace, _rendererFace);
-        //_rendererFace.material.mainTexture = spriteFace.texture;
 
         _spriteBack = spriteBack;
         ApplySpriteWithPropertyBlock(_spriteBack, _rendererBack);
-        //ApplyToQuad(_spriteBack, _rendererBack);
-        //_rendererBack.material.mainTexture = spriteBack.texture;
-
     }
 
     void ApplyToQuad(Sprite s, Renderer rend)
