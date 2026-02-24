@@ -189,6 +189,7 @@ public class Desk : MonoBehaviour
 
     private void CreateBonusAtRandomCard()
     {
+        Debug.Log(_collectionService);
         BonusCard nextBonusCard = _collectionService.GetNextLockedCard();
         if (nextBonusCard != null)
         {

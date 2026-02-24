@@ -9,14 +9,13 @@ public class GameInstaller : MonoInstaller
     public override void InstallBindings()
     {
         SignalBusInstaller.Install(Container);
+        Container.DeclareSignal<BonusCollectedSignal>().OptionalSubscriberWithWarning();
 
         Container.Bind<BonusPopup>().FromComponentInHierarchy().AsSingle();
         Container.BindInstance(_bonusCardDecks).AsSingle();
         Container.BindInterfacesAndSelfTo<BonusService>().AsSingle();
 
+        Container.Bind<ISaveStorage>().To<LocalJsonStorage>().AsSingle();
         Container.BindInterfacesAndSelfTo<CollectionService>().AsSingle();
-
-
-        Container.DeclareSignal<BonusCollectedSignal>().OptionalSubscriberWithWarning();
     }
 }

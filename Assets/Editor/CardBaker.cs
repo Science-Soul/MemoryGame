@@ -29,6 +29,7 @@ public class CardBaker : EditorWindow
                 // Клонируем материал и сохраняем его как ассет
                 Material newMat = new Material(renFace.sharedMaterial);
                 string matPath = $"{folderPath}/Materials/{card.name}_Mat.mat";
+                if (!Directory.Exists($"{folderPath}/Materials")) Directory.CreateDirectory($"{folderPath}/Materials");
                 AssetDatabase.CreateAsset(newMat, matPath);
 
                 // Назначаем сохраненный материал объекту

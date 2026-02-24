@@ -24,7 +24,7 @@ public class BonusService : IInitializable, IDisposable
 
     private void OnBonusCollected(BonusCollectedSignal signal)
     {
-        Debug.Log($"[BonusService] Сигнал ПОЛУЧЕН! Карта: {signal.unlockedCard?.name}");
+        Debug.Log($"[BonusService] Сигнал ПОЛУЧЕН! Карта: {(signal.unlockedCard != null ? signal.unlockedCard.name : null)}");
         Time.timeScale = 0;
         _popup.ShowWithCard(signal.unlockedCard, _popup.GetCancellationTokenOnDestroy()).Forget();
         Debug.Log("Показана карта " + signal.unlockedCard);
