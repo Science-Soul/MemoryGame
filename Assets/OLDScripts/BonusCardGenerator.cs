@@ -1,11 +1,7 @@
 using UnityEngine;
-using System.Collections.Generic;
-using UnityEngine.U2D;
-using System.Linq;
 
 public class BonusCardGenerator : MonoBehaviour
 {
-    //[SerializeField] SpriteAtlas _atlas;
     [SerializeField] Transform _gridTransform;
     [SerializeField] GameObject _bonusCardPrefab;
 
@@ -27,6 +23,7 @@ public class BonusCardGenerator : MonoBehaviour
             card.name = spriteFace.name;
             BonusCardDisplay display = card.GetComponent<BonusCardDisplay>();
             display.Init(spriteFace, _spriteBack);
+            Destroy(card.GetComponent<BonusCardDisplay>());
         }
     }
 }

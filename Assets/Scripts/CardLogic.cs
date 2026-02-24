@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class CardLogic : MonoBehaviour
 {
-    public GameObject back;
+    private GameObject back;
+    private Image face;
     private Desk desk;
     private Button button;
 
@@ -20,6 +21,9 @@ public class CardLogic : MonoBehaviour
         desk = FindAnyObjectByType<Desk>();
         back = gameObject.transform.Find("back").gameObject;
         back.SetActive(true);
+        face = gameObject.GetComponent<Image>();
+        face.enabled = false;
+        
 
         button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(() => desk.OnCardClicked(this.gameObject));
@@ -36,6 +40,7 @@ public class CardLogic : MonoBehaviour
         tween = gameObject.transform.DOScale(0, duration).SetEase(Ease.InOutElastic, animAmplitude, animPeriod).OnComplete(() =>
         {
             back.SetActive(!back.activeInHierarchy);
+            face.enabled = !face.enabled;
             gameObject.transform.DOScale(endScale, duration).SetEase(Ease.InOutElastic, animAmplitude, animPeriod);
         });
     }

@@ -51,7 +51,6 @@ public class CollectionService : IInitializable, IDisposable
         }
         else
         {
-
             return activeDeck.bonusCards.FirstOrDefault(c => !c.IsUnlocked);
         }
     }
