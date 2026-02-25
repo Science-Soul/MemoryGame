@@ -21,6 +21,6 @@ public class WinScreen : MonoBehaviour
 
     private void OnDestroy()
     {
-        DOTween.Kill(this.gameObject);
+        transform.DOKill(false);
     }
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,6 +35,7 @@ public class UIManager : MonoBehaviour
 
     public void RestartLevel()
     {
+        DOTween.KillAll();
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }

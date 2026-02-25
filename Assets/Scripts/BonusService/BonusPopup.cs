@@ -22,11 +22,15 @@ public class BonusPopup : MonoBehaviour
     [Inject]
     public void Construct(SignalBus signalBus, CollectionService collectionService, DiContainer container)
     {
-        _signalBus = signalBus;
-        _signalBus.Subscribe<BonusCollectedSignal>(OnBonusCollected);
+        //_signalBus = signalBus;
+        //_signalBus.Subscribe<BonusCollectedSignal>(OnBonusCollected);
         _container = container;
     }
-    private void OnDestroy() => _signalBus.Unsubscribe<BonusCollectedSignal>(OnBonusCollected);
+    private void OnDestroy()
+    {
+        //_signalBus.Unsubscribe<BonusCollectedSignal>(OnBonusCollected);
+        transform.DOKill();
+    }
 
     private void OnBonusCollected()
     {
@@ -39,7 +43,6 @@ public class BonusPopup : MonoBehaviour
         if (_currentModel != null) Destroy(_currentModel);
 
         // Инстанцируем через Zenject прямо в окно
-        Debug.LogWarning($"{bonusCard}");
         _currentModel = _container.InstantiatePrefab(bonusCard, this.gameObject.transform);
         modelToRotate = _currentModel;
         // Сбрасываем трансформацию, чтобы модель встала ровно
@@ -58,22 +61,20 @@ public class BonusPopup : MonoBehaviour
 
         // DOTween: Плавное появление (игнорирует Time.timeScale)
         canvasGroup.alpha = 0;
-        canvasGroup.DOFade(1, 0.5f).SetUpdate(true);
+        canvasGroup.DOFade(1, 0.5f).SetUpdate(true).SetLink(canvasGroup.gameObject);
 
         // DOTween: Вращение 3D модели
         modelToRotate.transform.rotation = Quaternion.Euler(0, -180, 0);
-        /*var oldScale = modelToRotate.transform.localScale;
-        modelToRotate.transform.localScale = Vector3.zero;
-        modelToRotate.transform.DOScale(oldScale, 0.9f).SetEase(Ease.OutBack).SetUpdate(true);*/
 
         _rotationTween = modelToRotate.transform.DORotate(new Vector3(0, 180, 0), 1.5f, RotateMode.WorldAxisAdd)
             .SetEase(Ease.Linear)
-            .SetUpdate(true);
+            .SetUpdate(true)
+            .SetLink(canvasGroup.gameObject);
 
         await closeButton.OnClickAsync(token);
 
         _rotationTween.Kill();
-        await canvasGroup.DOFade(0, 0.2f).SetUpdate(true).AsyncWaitForCompletion();
+        await canvasGroup.DOFade(0, 0.2f).SetUpdate(true).SetLink(canvasGroup.gameObject).AsyncWaitForCompletion();
         gameObject.SetActive(false);
         Time.timeScale = 1;
     }
