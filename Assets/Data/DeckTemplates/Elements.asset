@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bcdb9bc9c6bf4240b152bae45a6118c, type: 3}
+  m_Name: Elements
+  m_EditorClassIdentifier: Assembly-CSharp::CardDataSO
+  back: {fileID: 21300000, guid: d7bcce91ca715574a84897c8d4dc5e58, type: 3}
+  heartsPip: {fileID: 21300000, guid: 6994eb998b7aa3443a14ac2ab3313815, type: 3}
+  diamondsPip: {fileID: 21300000, guid: 77cf0dbfec4962b43b8d84708e2b76bc, type: 3}
+  clubsPip: {fileID: 21300000, guid: b41b84f191121fb4c89c6a884d7032ef, type: 3}
+  spadesPip: {fileID: 21300000, guid: ef66254a923a2bd47addcd6ca42773cd, type: 3}
+  heartsEmpty: {fileID: -1918732935884802762, guid: 6f116b7ae9f97e442bd77bfd82f9df65, type: 3}
+  diamondsEmpty: {fileID: -4109749422039054440, guid: 629db171dc82e0449aa0124da6aa7a96, type: 3}
+  clubsEmpty: {fileID: 21300000, guid: a210a6983270c78418872d19a46ef813, type: 3}
+  spadesEmpty: {fileID: 4023702529228040994, guid: 672b3865c45a44e4780c89caf821fe0c, type: 3}
+  heartsTextMat: {fileID: 2100000, guid: 35c9c422095a2e148a533df6ee7d931a, type: 2}
+  diamondTextMat: {fileID: 2100000, guid: d9671d7aacc413d48bf06c39a862587f, type: 2}
+  clubsTextMat: {fileID: 2100000, guid: 65bf4b2eca4d491408fee2dd84c71e7e, type: 2}
+  spadesTextMat: {fileID: 2100000, guid: ca1b92acdb062a64f9200ce5223a50ef, type: 2}
+  highRankSpriteStructs:
+  - suit: 0
+    rank: 12
+    sprite: {fileID: 21300000, guid: 8a8d5f22074e34943996a99e442666f3, type: 3}
+  - suit: 1
+    rank: 12
+    sprite: {fileID: 21300000, guid: 915c19af53590554595d3f6e93e8265a, type: 3}
+  - suit: 2
+    rank: 12
+    sprite: {fileID: 21300000, guid: 66693aa20de94c34db42e36a4bd8e951, type: 3}
+  - suit: 3
+    rank: 12
+    sprite: {fileID: 21300000, guid: b5726f7b8b0c4f241a01c0feec2515a4, type: 3}
+  - suit: 0
+    rank: 9
+    sprite: {fileID: 8260945647824456598, guid: f55f7cfa3777a6c4aa47bca797ffd41f, type: 3}
+  - suit: 1
+    rank: 9
+    sprite: {fileID: 7266966034762917251, guid: 79a51ee692621fd4798793f9acd4c2e2, type: 3}
+  - suit: 2
+    rank: 9
+    sprite: {fileID: 847684334437371896, guid: f961e34ae3c226046872467cf00d83d6, type: 3}
+  - suit: 3
+    rank: 9
+    sprite: {fileID: 4001670297867468387, guid: 3da622996e1ab074eb3caaae72dac593, type: 3}
+  - suit: 0
+    rank: 10
+    sprite: {fileID: 4893175103201948290, guid: 144de20f2ac346142a5e21b3f167abeb, type: 3}
+  - suit: 1
+    rank: 10
+    sprite: {fileID: -3244909630224245263, guid: dd40b57249c17db4c9acd05ab989cf7a, type: 3}
+  - suit: 2
+    rank: 10
+    sprite: {fileID: 4391511482750922319, guid: e0ea6fa34da6a8141845ef1b25857095, type: 3}
+  - suit: 3
+    rank: 10
+    sprite: {fileID: -5051956238579825557, guid: b509c8d05e2679a4c92f9be2dc651396, type: 3}
+  - suit: 0
+    rank: 11
+    sprite: {fileID: 4156769933219117394, guid: 11ac092a17fb8ee4d8da565531b29b7b, type: 3}
+  - suit: 1
+    rank: 11
+    sprite: {fileID: 8130768785765275947, guid: f7141c7fe9168ec458d84ecf81d52e92, type: 3}
+  - suit: 2
+    rank: 11
+    sprite: {fileID: -3189714962366182871, guid: 59b9c438e8048ed40a3ef4beccc92088, type: 3}
+  - suit: 3
+    rank: 11
+    sprite: {fileID: 3900034857092680970, guid: a5d3ffd7f3c39fe4bb0d8d29806e0df2, type: 3}

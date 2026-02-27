@@ -16,6 +16,7 @@ using Zenject;
 public class Desk : MonoBehaviour
 {
     [SerializeField] UIManager uiManager;
+    [SerializeField] Deck _currentDeck;
     [SerializeField] GameObject[] cardPrefabs;
     [SerializeField][Range(2, 4)] int numberOfCardsToSearch = 2;
 
@@ -73,7 +74,7 @@ public class Desk : MonoBehaviour
         List<GameObject> shuffledCardSets = new List<GameObject>();
         shuffledDeck = new List<GameObject>();
 
-        foreach (var card in cardPrefabs)
+        foreach (var card in _currentDeck.cardPrefabs)
         {
             shuffledCardSets.Add(card);
         }
