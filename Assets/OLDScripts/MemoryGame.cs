@@ -244,6 +244,10 @@ public class MemoryGame : MonoBehaviour
         return currentDeckStyle.back;
     }
 
+    public TMP_FontAsset GetFont()
+    {
+        return currentDeckStyle.font;
+    }
     public Material GetTextMaterialForSuit(CardSuit suit)
     {
         switch (suit)
@@ -265,11 +269,13 @@ public class MemoryGame : MonoBehaviour
             {
                 GameObject card = Instantiate(cardPrefabs[(int)rank], container);
                 card.name = ((int)rank + 2).ToString() + "_" + rank + "_" + suit.ToString();
-                card.GetComponent<RectTransform>().position = new Vector2((int)suit * 1.5f, ((int)rank) * 2);
+                card.GetComponent<RectTransform>().localPosition = new Vector3((int)suit * 1.5f, ((int)rank) * 2, 0.0f);
                 if (card.TryGetComponent<CardDisplay>(out var cardComponent))
                 {
                     cardComponent.InitializeCard(suit, rank);
                 }
+                //card.AddComponent<CardLogic>();
+                Destroy(card.GetComponent<CardDisplay>());
             }
         }
     }

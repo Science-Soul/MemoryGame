@@ -46,15 +46,16 @@ public class CardDisplay : MonoBehaviour
             Sprite desiredEmptySprite = gameManager.GetEmptySpriteForSuit(Suit);
             Sprite desiredBackSprite = gameManager.GetBackSprite();
             Material desiredMat = gameManager.GetTextMaterialForSuit(Suit);
+            TMP_FontAsset desiredFont = gameManager.GetFont();
 
             if (desiredPipSprite != null && desiredEmptySprite != null && desiredBackSprite != null && desiredMat != null)
             {
-                UpdateCardVisuals(desiredPipSprite, desiredEmptySprite, desiredBackSprite, desiredMat);
+                UpdateCardVisuals(desiredPipSprite, desiredEmptySprite, desiredBackSprite, desiredMat, desiredFont);
             }
         }
     }
 
-    public void UpdateCardVisuals(Sprite pipSprite, Sprite emptySprite, Sprite backSprite, Material textMat)
+    public void UpdateCardVisuals(Sprite pipSprite, Sprite emptySprite, Sprite backSprite, Material textMat, TMP_FontAsset font)
     {
         foreach (Image pip in pipImagesOnCard)
         {
@@ -66,6 +67,7 @@ public class CardDisplay : MonoBehaviour
 
         foreach (TextMeshProUGUI text in digits)
         {
+            text.font = font;
             text.fontMaterial = textMat;
         }
 

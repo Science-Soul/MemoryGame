@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static MemoryGame;
 
@@ -22,6 +23,7 @@ public class CardDataSO : ScriptableObject
     public Sprite spadesEmpty;
 
     [Space]
+    public TMP_FontAsset font;
     public Material heartsTextMat;
     public Material diamondTextMat;
     public Material clubsTextMat;

@@ -10,6 +10,7 @@ public class GameInstaller : MonoInstaller
     {
         SignalBusInstaller.Install(Container);
         Container.DeclareSignal<BonusCollectedSignal>().OptionalSubscriberWithWarning();
+        Container.DeclareSignal<ChangeDeckSignal>();
 
         Container.Bind<BonusPopup>().FromComponentInHierarchy().AsSingle();
         Container.BindInstance(_bonusCardDecks).AsSingle();
