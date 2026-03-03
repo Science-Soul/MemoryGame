@@ -5,8 +5,8 @@ using Zenject;
 
 namespace Assets.Scripts
 {
-	public class DeckToggleButton : MonoBehaviour
-	{
+    public class DeckToggleButton : MonoBehaviour
+    {
         [Inject] private SignalBus _signalBus;
         [SerializeField] private Deck deckData;
         [SerializeField] private Button button;
@@ -17,7 +17,7 @@ namespace Assets.Scripts
             button.OnClickAsObservable().Subscribe(_ =>
             {
                 _signalBus.Fire(new ChangeDeckSignal { newDeck = deckData });
-            }).AddTo(this);
+            }).AddTo(this); // автоотписка
         }
     }
 }

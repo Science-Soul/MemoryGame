@@ -1034,6 +1034,7 @@ GameObject:
   - component: {fileID: 768602368}
   - component: {fileID: 768602367}
   - component: {fileID: 768602366}
+  - component: {fileID: 768602370}
   m_Layer: 5
   m_Name: ElementsButton
   m_TagString: Untagged
@@ -1157,6 +1158,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 768602364}
   m_CullTransparentMesh: 1
+--- !u!114 &768602370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768602364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49511bef532b2564c810ca90758f2c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.BonusDeckButtonInit
+  deckToUnlock: {fileID: 11400000, guid: 17ec9618460a01f419adc67fcd529815, type: 2}
 --- !u!1 &826936587
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class CollectionService : IInitializable, IDisposable
     public void Initialize()
     {
         _signalBus.Subscribe<BonusCollectedSignal>(OnBonusCollected);
-
+        _signalBus.Subscribe<DeckUnlockedSignal>(OnDeckUnlocked);
         _currentSave = _saveStorage.Load();
         foreach (var deck in _allDecks)
         {
@@ -32,8 +32,11 @@ public class CollectionService : IInitializable, IDisposable
         }
     }
 
-    public void Dispose() => _signalBus.Unsubscribe<BonusCollectedSignal>(OnBonusCollected);
-
+    public void Dispose()
+    {
+        _signalBus.Unsubscribe<BonusCollectedSignal>(OnBonusCollected);
+        _signalBus.Unsubscribe<DeckUnlockedSignal>(OnDeckUnlocked);
+    }
 
     private void OnBonusCollected(BonusCollectedSignal signal)
     {
@@ -55,13 +58,20 @@ public class CollectionService : IInitializable, IDisposable
             // Проверяем, не закрыли ли мы всю колоду этим ходом
             if (activeDeck.IsComplete)
             {
+                _signalBus.Fire(new DeckUnlockedSignal());
                 Debug.Log($"<color=gold>ПОЗДРАВЛЯЕМ! Колода {activeDeck.name} полностью собрана!</color>");
             }
         }
         else
         {
+            _signalBus.Fire(new DeckUnlockedSignal());
             Debug.Log("Все 3 колоды уже собраны! Вы мастер игры.");
         }
+    }
+
+    private void OnDeckUnlocked()
+    {
+        Debug.Log("Колода открыта. Сигнал отправлен.");
     }
 
     public BonusCard GetNextLockedCard()
