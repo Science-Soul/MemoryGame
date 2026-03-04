@@ -1,6 +1,8 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Zenject;
 
 public class WinScreen : MonoBehaviour
 {
@@ -22,5 +24,11 @@ public class WinScreen : MonoBehaviour
     private void OnDestroy()
     {
         transform.DOKill(false);
+    }
+
+    public void ReturnToMenu()
+    {
+        DOTween.KillAll();
+        SceneManager.LoadSceneAsync(0);
     }
 }

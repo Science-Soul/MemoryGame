@@ -5,10 +5,10 @@ using UnityEngine;
 public static class PlayerAchievments
 {
     public const int BASE_EXP = 100;
-    public const int BASE_TIME_BONUS = 10;
+    public const int BASE_TIME_BONUS = 1;
     public const float EXP_MULTIPLIER = 1.05f;
-    public const int EXP_FOR_LEVEL_COMPLETE = 100;
-    public const int MASTERY_DELTA = 10;
+    public const int EXP_FOR_LEVEL_COMPLETE = 50;
+    public const int LEVELS_FOR_MASTERY_UP = 10;
     public const int MAX_LEVEL = 100;
 
     private static int currentLevel = 1;
@@ -89,7 +89,7 @@ public static class PlayerAchievments
 
     private static void MasteryUp()
     {
-        int masteryIndex = Mathf.FloorToInt(currentLevel / MASTERY_DELTA);
+        int masteryIndex = Mathf.FloorToInt(currentLevel / LEVELS_FOR_MASTERY_UP);
 
         if (masteryIndex > PLAYER_MASTERIES.Length - 1)
         {

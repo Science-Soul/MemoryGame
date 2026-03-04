@@ -32,15 +32,9 @@ public class Desk : MonoBehaviour
 
     private GridLayoutGroup gridLayout;
 
-    [Inject] private SignalBus _signalBus;
-
     private void Start()
     {
-        _signalBus.Subscribe<ChangeDeckSignal>(OnChangeDeck);
-        openedCards = new List<GameObject>(numberOfCardsToSearch);
-        currentDifficult = difficultLevel;
-        this.baseBonusTime = currentDifficult.BaseBonusTime;
-        numberOfSets = currentDifficult.NumberOfCardsOnDesk / numberOfCardsToSearch;
+        GridInit();
         uiManager.UpdateUI();
         uiManager.levelObjectives.Init("Находи по " + numberOfCardsToSearch + " одинаковые карты");
         
@@ -48,6 +42,10 @@ public class Desk : MonoBehaviour
 
     private void GridInit()
     {
+        openedCards = new List<GameObject>(numberOfCardsToSearch);
+        currentDifficult = difficultLevel;
+        this.baseBonusTime = currentDifficult.BaseBonusTime;
+        numberOfSets = currentDifficult.NumberOfCardsOnDesk / numberOfCardsToSearch;
         GridLayoutInit();
         GridFill();
         ExpAdded += OnExpAdded;
@@ -57,16 +55,8 @@ public class Desk : MonoBehaviour
 
     private void OnDestroy()
     {
-        _signalBus.TryUnsubscribe<ChangeDeckSignal>(OnChangeDeck);
         ExpAdded -= OnExpAdded;
         DOTween.Kill(this.gameObject);
-    }
-
-    private void OnChangeDeck(ChangeDeckSignal signal)
-    {
-        _currentDeck = signal.newDeck;
-        Debug.Log("Колода сменена!");
-        GridInit();
     }
 
     private void GridFill()
