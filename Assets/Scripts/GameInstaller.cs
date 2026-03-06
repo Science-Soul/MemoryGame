@@ -17,7 +17,6 @@ public class GameInstaller : MonoInstaller
         Container.BindInstance(_bonusCardDecks).AsSingle();
         Container.BindInterfacesAndSelfTo<BonusService>().AsSingle();
 
-        Container.Bind<ISaveStorage>().To<LocalJsonStorage>().AsSingle();
         Container.BindInterfacesAndSelfTo<CollectionService>().AsSingle();
     }
 }

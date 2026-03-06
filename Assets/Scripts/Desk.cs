@@ -3,15 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using static PlayerAchievments;
 using Random = UnityEngine.Random;
-using System.Threading;
 using Zenject;
+using Assets.Scripts;
 
 public class Desk : MonoBehaviour
 {
@@ -31,6 +29,14 @@ public class Desk : MonoBehaviour
     private DifficultLevels currentDifficult;
 
     private GridLayoutGroup gridLayout;
+
+    private ResourceModel _resourceModel;
+
+    [Inject]
+    public void Construct(ResourceModel resourceModel)
+    {
+        _resourceModel = resourceModel;
+    }
 
     private void Start()
     {
@@ -134,6 +140,7 @@ public class Desk : MonoBehaviour
         if (openedCards.All(x => x.name == openedCards[0].name))
         {
             ExpAdd(numberOfCardsToSearch * numberOfCardsToSearch);
+            _resourceModel.AddGold(10);
             Debug.Log("Найдено совпадение из " + numberOfCardsToSearch + " карт");
 
             foreach (var c in openedCards)

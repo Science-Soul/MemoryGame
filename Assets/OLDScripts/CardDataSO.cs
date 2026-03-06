@@ -11,22 +11,22 @@ public class CardDataSO : ScriptableObject
     public Sprite back;
 
     [Space]
-    public Sprite heartsPip;
+    public Sprite crestsPip;
     public Sprite diamondsPip;
-    public Sprite clubsPip;
+    public Sprite heartsPip;
     public Sprite spadesPip;
 
     [Space]
-    public Sprite heartsEmpty;
+    public Sprite crestsEmpty;
     public Sprite diamondsEmpty;
-    public Sprite clubsEmpty;
+    public Sprite heartsEmpty;
     public Sprite spadesEmpty;
 
     [Space]
     public TMP_FontAsset font;
-    public Material heartsTextMat;
+    public Material crestsTextMat;
     public Material diamondTextMat;
-    public Material clubsTextMat;
+    public Material heartsTextMat;
     public Material spadesTextMat;
 
     [Serializable]

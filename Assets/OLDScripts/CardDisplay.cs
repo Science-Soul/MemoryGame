@@ -21,7 +21,6 @@ public class CardDisplay : MonoBehaviour
         gameManager = FindAnyObjectByType<MemoryGame>();
         face = gameObject.GetComponent<Image>();
         back = gameObject.transform.Find("back").GetComponent<Image>();
-        Debug.Log(back);
         button = gameObject.GetComponent<Button>();
 
         TextMeshProUGUI[] textFields = GetComponentsInChildren<TextMeshProUGUI>();
@@ -48,7 +47,10 @@ public class CardDisplay : MonoBehaviour
             Material desiredMat = gameManager.GetTextMaterialForSuit(Suit);
             TMP_FontAsset desiredFont = gameManager.GetFont();
 
-            if (desiredPipSprite != null && desiredEmptySprite != null && desiredBackSprite != null && desiredMat != null)
+            if (desiredPipSprite != null 
+                && desiredEmptySprite != null 
+                && desiredBackSprite != null 
+                && desiredMat != null)
             {
                 UpdateCardVisuals(desiredPipSprite, desiredEmptySprite, desiredBackSprite, desiredMat, desiredFont);
             }
@@ -72,6 +74,7 @@ public class CardDisplay : MonoBehaviour
         }
 
         face.sprite = emptySprite;
+        face.SetNativeSize();
         back.sprite = backSprite;
         back.type = Image.Type.Simple;
         back.SetNativeSize();

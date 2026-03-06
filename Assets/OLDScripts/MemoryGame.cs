@@ -221,7 +221,7 @@ public class MemoryGame : MonoBehaviour
         {
             case CardSuit.Hearts: return currentDeckStyle.heartsPip;
             case CardSuit.Diamonds: return currentDeckStyle.diamondsPip;
-            case CardSuit.Clubs: return currentDeckStyle.clubsPip;
+            case CardSuit.Crests: return currentDeckStyle.crestsPip;
             case CardSuit.Spades: return currentDeckStyle.spadesPip;
             default: return null;
         }
@@ -233,7 +233,7 @@ public class MemoryGame : MonoBehaviour
         {
             case CardSuit.Hearts: return currentDeckStyle.heartsEmpty;
             case CardSuit.Diamonds: return currentDeckStyle.diamondsEmpty;
-            case CardSuit.Clubs: return currentDeckStyle.clubsEmpty;
+            case CardSuit.Crests: return currentDeckStyle.crestsEmpty;
             case CardSuit.Spades: return currentDeckStyle.spadesEmpty;
             default: return null;
         }
@@ -254,7 +254,7 @@ public class MemoryGame : MonoBehaviour
         {
             case CardSuit.Hearts: return currentDeckStyle.heartsTextMat;
             case CardSuit.Diamonds: return currentDeckStyle.diamondTextMat;
-            case CardSuit.Clubs: return currentDeckStyle.clubsTextMat;
+            case CardSuit.Crests: return currentDeckStyle.crestsTextMat;
             case CardSuit.Spades: return currentDeckStyle.spadesTextMat;
             default: return null;
         }
@@ -284,7 +284,7 @@ public class MemoryGame : MonoBehaviour
     {
         Diamonds,
         Spades,
-        Clubs,
+        Crests,
         Hearts
     }
 
