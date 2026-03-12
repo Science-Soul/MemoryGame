@@ -746,6 +746,7 @@ GameObject:
   - component: {fileID: 1113963784}
   - component: {fileID: 1113963785}
   - component: {fileID: 1113963786}
+  - component: {fileID: 1113963787}
   m_Layer: 0
   m_Name: CardGeneratorNormal
   m_TagString: Untagged
@@ -802,7 +803,7 @@ MonoBehaviour:
   - {fileID: 5732690546427659550, guid: e18febb4b1f79cd4dbaa7751ea90a139, type: 3}
   - {fileID: 4462987401167010749, guid: 30325111292ecf04b9116301377bfe8a, type: 3}
   - {fileID: 7599318413460112087, guid: e6f6b2907a49d4b46b87944dbc7cdf56, type: 3}
-  deckStyleA: {fileID: 11400000, guid: 016baa584533a8942a20e258df40091a, type: 2}
+  deckStyleA: {fileID: 11400000, guid: 424c0086d5b8baa4ca4af19b236641e6, type: 2}
   deckStyleB: {fileID: 11400000, guid: 424c0086d5b8baa4ca4af19b236641e6, type: 2}
 --- !u!114 &1113963786
 MonoBehaviour:
@@ -817,6 +818,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WinCheck
   lvlText: {fileID: 0}
+--- !u!114 &1113963787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113963783}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd4dffb3ee5f2e40865bf4a2b45044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MipMapBias
+  atlas: {fileID: 100100200, guid: 09c1807bb7fdab94d83f1f5df83dac09, type: 3}
+  bias: -0.968
 --- !u!1 &1149100697
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public class Desk : MonoBehaviour
     [SerializeField] Deck _currentDeck;
     [SerializeField] GameObject[] cardPrefabs;
     [SerializeField][Range(2, 4)] int numberOfCardsToSearch = 2;
+    [SerializeField] ResourceModel.ResourceType resourceType;
 
     private List<GameObject> shuffledDeck;
     private List<GameObject> allCards;
@@ -140,7 +141,7 @@ public class Desk : MonoBehaviour
         if (openedCards.All(x => x.name == openedCards[0].name))
         {
             ExpAdd(numberOfCardsToSearch * numberOfCardsToSearch);
-            _resourceModel.AddGold(10);
+            _resourceModel.AddResource(resourceType, 10);
             Debug.Log("Найдено совпадение из " + numberOfCardsToSearch + " карт");
 
             foreach (var c in openedCards)

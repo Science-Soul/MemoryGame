@@ -7,7 +7,12 @@ using Zenject;
 public class HudView : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI goldText;
-    [SerializeField] TextMeshProUGUI woodText;
+    [SerializeField] TextMeshProUGUI foodText;
+    [SerializeField] TextMeshProUGUI materialsText;
+    [SerializeField] TextMeshProUGUI seasonsText;
+    [SerializeField] TextMeshProUGUI scienceText;
+    [SerializeField] TextMeshProUGUI predictionText;
+    [SerializeField] TextMeshProUGUI manaText;
 
     private ResourceModel _model;
     private readonly CompositeDisposable _disposables = new();
@@ -25,8 +30,28 @@ public class HudView : MonoBehaviour
             .Subscribe(value => goldText.text = $"Gold: {value}")
             .AddTo(_disposables);
 
-        _model.Wood
-            .Subscribe(value => woodText.text = $"Wood: {value}")
+        _model.Food
+            .Subscribe(value => foodText.text = $"Food: {value}")
+            .AddTo(_disposables);
+
+        _model.Materials
+            .Subscribe(value => materialsText.text = $"Materials: {value}")
+            .AddTo(_disposables);
+
+        _model.Prediction          
+            .Subscribe(value => predictionText.text = $"Prediction: {value}")
+            .AddTo(_disposables);
+
+        _model.Science
+            .Subscribe(value => scienceText.text = $"Science: {value}")
+            .AddTo(_disposables);
+
+        _model.Seasons
+            .Subscribe(value => seasonsText.text = $"Seasons: {value}")
+            .AddTo(_disposables);
+
+        _model.Mana
+            .Subscribe(value => manaText.text = $"Mana: {value}")
             .AddTo(_disposables);
     }
 
