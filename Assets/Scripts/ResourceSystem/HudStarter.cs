@@ -1,4 +1,4 @@
-using Zenject;
+п»їusing Zenject;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -18,10 +18,10 @@ namespace Assets.Scripts
         {
             if (_hudPrefab == null) return;
 
-            // Создаем префаб ПОСЛЕ завершения всех инсталлеров
+            // РЎРѕР·РґР°РµРј РїСЂРµС„Р°Р± РџРћРЎР›Р• Р·Р°РІРµСЂС€РµРЅРёСЏ РІСЃРµС… РёРЅСЃС‚Р°Р»Р»РµСЂРѕРІ
             var hudInstance = _container.InstantiatePrefab(_hudPrefab);
 
-            Debug.Log("<color=green>[HudStarter]</color> HUD создан безопасно!");
+            Debug.Log("<color=green>[HudStarter]</color> HUD СЃРѕР·РґР°РЅ Р±РµР·РѕРїР°СЃРЅРѕ!");
         }
     }
 }

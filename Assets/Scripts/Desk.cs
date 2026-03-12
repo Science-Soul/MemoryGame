@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,6 @@ public class Desk : MonoBehaviour
     [SerializeField] Deck _currentDeck;
     [SerializeField] GameObject[] cardPrefabs;
     [SerializeField][Range(2, 4)] int numberOfCardsToSearch = 2;
-    [SerializeField] ResourceModel.ResourceType resourceType;
 
     private List<GameObject> shuffledDeck;
     private List<GameObject> allCards;
@@ -32,18 +31,20 @@ public class Desk : MonoBehaviour
     private GridLayoutGroup gridLayout;
 
     private ResourceModel _resourceModel;
+    private LevelSettings _levelSettings;
 
     [Inject]
-    public void Construct(ResourceModel resourceModel)
+    public void Construct(ResourceModel resourceModel, LevelSettings levelSettings)
     {
         _resourceModel = resourceModel;
+        _levelSettings = levelSettings;
     }
 
     private void Start()
     {
         GridInit();
         uiManager.UpdateUI();
-        uiManager.levelObjectives.Init("Находи по " + numberOfCardsToSearch + " одинаковые карты");
+        uiManager.levelObjectives.Init("РќР°С…РѕРґРё РїРѕ " + numberOfCardsToSearch + " РѕРґРёРЅР°РєРѕРІС‹Рµ РєР°СЂС‚С‹");
         
     }
 
@@ -79,7 +80,7 @@ public class Desk : MonoBehaviour
             card.InitAnim();
         }
 
-        Debug.Log($"Всего карт на столе {allCards.Count}");
+        Debug.Log($"Р’СЃРµРіРѕ РєР°СЂС‚ РЅР° СЃС‚РѕР»Рµ {allCards.Count}");
     }
 
     private void CreateShuffledDeck()
@@ -141,8 +142,8 @@ public class Desk : MonoBehaviour
         if (openedCards.All(x => x.name == openedCards[0].name))
         {
             ExpAdd(numberOfCardsToSearch * numberOfCardsToSearch);
-            _resourceModel.AddResource(resourceType, 10);
-            Debug.Log("Найдено совпадение из " + numberOfCardsToSearch + " карт");
+            _resourceModel.AddResource(_levelSettings.primaryResource, _levelSettings.rewardAmount);
+            Debug.Log("РќР°Р№РґРµРЅРѕ СЃРѕРІРїР°РґРµРЅРёРµ РёР· " + numberOfCardsToSearch + " РєР°СЂС‚");
 
             foreach (var c in openedCards)
             {
@@ -159,13 +160,13 @@ public class Desk : MonoBehaviour
                 allCards.Remove(c);
             }
 
-            Debug.Log("Всего карт " + allCards.Count);
+            Debug.Log("Р’СЃРµРіРѕ РєР°СЂС‚ " + allCards.Count);
             numberOfMatchedCards += numberOfCardsToSearch;
             if (numberOfMatchedCards == currentDifficult.NumberOfCardsOnDesk)
             {
                 uiManager.timer.TimerOff();
 
-                // Ждем завершения твинов
+                // Р–РґРµРј Р·Р°РІРµСЂС€РµРЅРёСЏ С‚РІРёРЅРѕРІ
                 while (DOTween.PlayingTweens() != null && DOTween.PlayingTweens().Count > 0)
                 {
                     yield return null;
@@ -215,7 +216,7 @@ public class Desk : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Все карты уже открыты, бонуса не будет");
+            Debug.LogWarning("Р’СЃРµ РєР°СЂС‚С‹ СѓР¶Рµ РѕС‚РєСЂС‹С‚С‹, Р±РѕРЅСѓСЃР° РЅРµ Р±СѓРґРµС‚");
         }
     }
 }
