@@ -1,8 +1,7 @@
-using UnityEngine;
-
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "DifficultLevel", menuName = "Game/DifficultLevel")]
-public class DifficultLevels : ScriptableObject
+public class DifficultyLevels : ScriptableObject
 {
     [SerializeField] int numberOfCardsOnDesk;
     public int NumberOfCardsOnDesk

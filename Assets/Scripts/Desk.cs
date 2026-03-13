@@ -25,8 +25,8 @@ public class Desk : MonoBehaviour
     private int numberOfMatchedCards = 0;
     private int baseBonusTime = 0;
 
-    [SerializeField] DifficultLevels difficultLevel;
-    private DifficultLevels currentDifficult;
+    [SerializeField] DifficultyLevels difficultLevel;
+    private DifficultyLevels currentDifficult;
 
     private GridLayoutGroup gridLayout;
 
