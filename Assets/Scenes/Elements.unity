@@ -317,7 +317,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515956945}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98a2978673e5bb54189e92de74c8759b, type: 3}
   m_Name: 
@@ -377,8 +377,6 @@ MonoBehaviour:
   - {fileID: 8287393440166381412, guid: b47ddbdc87ebaed4091143a8f397231b, type: 3}
   - {fileID: 8173500630351386288, guid: 347a04f74ca6a7e44b20ff9c4e8d942a, type: 3}
   - {fileID: 8068726474294713890, guid: 95bcd513fe5995e458bac961c4781f60, type: 3}
-  numberOfCardsToSearch: 2
-  difficultLevel: {fileID: 11400000, guid: 68348f0a7087379488affa28c511ab62, type: 2}
   bonusPrefab: {fileID: -8183589066061642914, guid: 69227dfdc35641d49b4d157edfe3b574, type: 3}
 --- !u!114 &515956949
 MonoBehaviour:
@@ -1931,73 +1929,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1115920253922029475, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1115920253922029475, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1115920253922029475, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1115920253922029475, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1157070189820195595, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1157070189820195595, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1157070189820195595, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1157070189820195595, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1880655446018219577, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
       propertyPath: m_Name
       value: DifficultyLevelCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 2484363675396115901, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2484363675396115901, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2484363675396115901, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2484363675396115901, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2636679568566592438, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2636679568566592438, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2636679568566592438, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2636679568566592438, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5284277913003731398, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

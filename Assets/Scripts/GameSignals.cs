@@ -1,4 +1,4 @@
-public struct BonusCollectedSignal
+﻿public struct BonusCollectedSignal
 {
     public BonusCard unlockedCard;
 }
@@ -11,4 +11,9 @@ public struct DeckUnlockedSignal
 public struct ChangeDeckSignal
 {
     public Deck newDeck;
+}
+
+public struct StartGameSignal
+{
+    public DifficultyLevels selectedDifficulty;
 }

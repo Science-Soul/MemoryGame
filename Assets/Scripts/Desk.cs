@@ -16,7 +16,7 @@ public class Desk : MonoBehaviour
     [SerializeField] UIManager uiManager;
     [SerializeField] Deck _currentDeck;
     [SerializeField] GameObject[] cardPrefabs;
-    [SerializeField][Range(2, 4)] int numberOfCardsToSearch = 2;
+    private int numberOfCardsToSearch = 2;
 
     private List<GameObject> shuffledDeck;
     private List<GameObject> allCards;
@@ -25,19 +25,31 @@ public class Desk : MonoBehaviour
     private int numberOfMatchedCards = 0;
     private int baseBonusTime = 0;
 
-    [SerializeField] DifficultyLevels difficultLevel;
-    private DifficultyLevels currentDifficult;
+    //[SerializeField] DifficultyLevels difficultLevel;
+    private DifficultyLevels currentDifficulty;
 
     private GridLayoutGroup gridLayout;
 
+    private SignalBus _signalBus;
     private ResourceModel _resourceModel;
     private LevelSettings _levelSettings;
 
+
     [Inject]
-    public void Construct(ResourceModel resourceModel, LevelSettings levelSettings)
+    public void Construct(SignalBus signalBus, ResourceModel resourceModel, LevelSettings levelSettings)
     {
         _resourceModel = resourceModel;
         _levelSettings = levelSettings;
+
+        _signalBus = signalBus;
+        _signalBus.Subscribe<StartGameSignal>(OnGameStarted);
+    }
+
+    private void OnGameStarted(StartGameSignal signal)
+    {
+        this.enabled = true;
+        currentDifficulty = signal.selectedDifficulty;
+        Debug.Log("Current difficulty " + currentDifficulty.name);
     }
 
     private void Start()
@@ -50,10 +62,12 @@ public class Desk : MonoBehaviour
 
     private void GridInit()
     {
+        numberOfCardsToSearch = currentDifficulty.NumberOfCardsToSearch;
+        Debug.Log($"Ищи {numberOfCardsToSearch} одинаковых карт");
         openedCards = new List<GameObject>(numberOfCardsToSearch);
-        currentDifficult = difficultLevel;
-        this.baseBonusTime = currentDifficult.BaseBonusTime;
-        numberOfSets = currentDifficult.NumberOfCardsOnDesk / numberOfCardsToSearch;
+        //currentDifficulty = difficultLevel;
+        this.baseBonusTime = currentDifficulty.BaseBonusTime;
+        numberOfSets = currentDifficulty.NumberOfCardsOnDesk / numberOfCardsToSearch;
         GridLayoutInit();
         GridFill();
         ExpAdded += OnExpAdded;
@@ -65,13 +79,14 @@ public class Desk : MonoBehaviour
     {
         ExpAdded -= OnExpAdded;
         DOTween.Kill(this.gameObject);
+        _signalBus?.TryUnsubscribe<StartGameSignal>(OnGameStarted);
     }
 
     private void GridFill()
     {
         allCards = new();
         CreateShuffledDeck();
-        gameObject.transform.localScale = currentDifficult.GridScale * Vector3.one;
+        gameObject.transform.localScale = currentDifficulty.GridScale * Vector3.one;
         for (int i = 0; i < shuffledDeck.Count; i++)
         {
             GameObject cardGO = Instantiate(shuffledDeck[i], this.gameObject.GetComponent<RectTransform>());
@@ -121,7 +136,7 @@ public class Desk : MonoBehaviour
     {
         gridLayout = GetComponent<GridLayoutGroup>();
         gridLayout.constraint = GridLayoutGroup.Constraint.FixedRowCount;
-        gridLayout.constraintCount = currentDifficult.NumberOfRows;
+        gridLayout.constraintCount = currentDifficulty.NumberOfRows;
     }
 
     public void OnCardClicked(GameObject card)
@@ -162,7 +177,7 @@ public class Desk : MonoBehaviour
 
             Debug.Log("Всего карт " + allCards.Count);
             numberOfMatchedCards += numberOfCardsToSearch;
-            if (numberOfMatchedCards == currentDifficult.NumberOfCardsOnDesk)
+            if (numberOfMatchedCards == currentDifficulty.NumberOfCardsOnDesk)
             {
                 uiManager.timer.TimerOff();
 
