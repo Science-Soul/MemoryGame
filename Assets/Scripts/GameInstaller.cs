@@ -24,5 +24,7 @@ public class GameInstaller : MonoInstaller
 
         Container.BindInterfacesAndSelfTo<CollectionService>().AsSingle();
         Container.DeclareSignal<StartGameSignal>();
+
+        
     }
 }

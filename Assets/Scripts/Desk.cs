@@ -157,7 +157,7 @@ public class Desk : MonoBehaviour
         if (openedCards.All(x => x.name == openedCards[0].name))
         {
             ExpAdd(numberOfCardsToSearch * numberOfCardsToSearch);
-            _resourceModel.AddResource(_levelSettings.primaryResource, _levelSettings.rewardAmount);
+            _resourceModel.AddResource(_levelSettings.levelType, _levelSettings.rewardAmount);
             Debug.Log("Найдено совпадение из " + numberOfCardsToSearch + " карт");
 
             foreach (var c in openedCards)

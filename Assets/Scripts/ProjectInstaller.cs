@@ -11,6 +11,7 @@ namespace Assets.Scripts
             Container.Bind<ISaveStorage>().To<LocalJsonStorage>().AsSingle();
 
             Container.Bind<ResourceModel>().AsSingle();
+            Container.Bind<LevelUnlockService>().AsSingle();
             Container.BindInstance(hudPrefab).WhenInjectedInto<HudStarter>();
             Container.BindInterfacesTo<HudStarter>().AsSingle();
         }

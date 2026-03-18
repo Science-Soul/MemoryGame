@@ -1,10 +1,14 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Assets.Scripts;
 
 [System.Serializable]
 public class SaveData
 {
-    // ������ ���� ���������������� ����
-    public List<string> UnlockedCardNames = new List<string>();
+    // Список имен разблокированных карт
+    public List<string> UnlockedCardNames = new();
+
+    // Список разблокированных уровней
+    public List<ResourceModel.LevelResourceType> UnlockedLevels = new() { ResourceModel.LevelResourceType.GOLD};
 
     public int Gold = 0;
     public int Food = 0;
