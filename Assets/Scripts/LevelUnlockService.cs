@@ -14,15 +14,15 @@ public class LevelUnlockService
         return data.UnlockedLevels.Contains(level.levelType);
     }
 
-    public void UnlockLevel(LevelSettings level)
+    public bool TryUnlockLevel(LevelSettings level)
     {
         if (IsUnlocked(level))
         {
             Debug.Log("Уровень уже разблокирован!");
-            return;
+            return false;
         }
 
-        if (level.resourcesCost.All(cost => _resources.GetResourceAvailable(cost.type) >= cost.amount))
+        if (IsResourcesEnough(level))
         {
             foreach (var cost in level.resourcesCost)
             {
@@ -34,6 +34,14 @@ public class LevelUnlockService
             _storage.Save(data);
 
             Debug.Log($"<color=green>Уровень {level.levelType} теперь доступен!</color>");
+            return true;
         }
+
+        return false;
+    }
+
+    public bool IsResourcesEnough(LevelSettings level)
+    {
+        return level.resourcesCost.All(cost => _resources.GetResourceAvailable(cost.type) >= cost.amount);
     }
 }
