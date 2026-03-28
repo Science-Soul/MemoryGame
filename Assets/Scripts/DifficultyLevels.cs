@@ -32,4 +32,10 @@ public class DifficultyLevels : ScriptableObject
     {
         get { return numberOfCardsToSearch; }
     }
+
+    [SerializeField] int expMultiplier = 1;
+    public int ExpMultiplier
+    {
+        get { return expMultiplier; }
+    }
 }

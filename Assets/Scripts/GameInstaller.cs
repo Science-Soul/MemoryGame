@@ -25,6 +25,6 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CollectionService>().AsSingle();
         Container.DeclareSignal<StartGameSignal>();
 
-        
+        Container.Bind<Camera>().FromInstance(Camera.main).AsSingle();
     }
 }

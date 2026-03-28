@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ public static class PlayerAchievments
 {
     public const int BASE_EXP = 100;
     public const int BASE_TIME_BONUS = 1;
-    public const float EXP_MULTIPLIER = 1.05f;
+    public const float EXP_MULTIPLIER = 1.07f;
     public const int EXP_FOR_LEVEL_COMPLETE = 50;
     public const int LEVELS_FOR_MASTERY_UP = 10;
     public const int MAX_LEVEL = 100;
@@ -26,17 +26,17 @@ public static class PlayerAchievments
 
     private static readonly string[] PLAYER_MASTERIES = new string[11]
     {
-        "Новичок",
-        "Ученик",
-        "Знаток",
-        "Хранитель образов",
-        "Архивариус",
-        "Магистр",
-        "Мастер",
-        "Мнемонист",
-        "Мудрец",
-        "Оракул",
-        "Великий"
+        "РќРѕРІРёС‡РѕРє",
+        "РЈС‡РµРЅРёРє",
+        "Р—РЅР°С‚РѕРє",
+        "РҐСЂР°РЅРёС‚РµР»СЊ РѕР±СЂР°Р·РѕРІ",
+        "РђСЂС…РёРІР°СЂРёСѓСЃ",
+        "РњР°РіРёСЃС‚СЂ",
+        "РњР°СЃС‚РµСЂ",
+        "РњРЅРµРјРѕРЅРёСЃС‚",
+        "РњСѓРґСЂРµС†",
+        "РћСЂР°РєСѓР»",
+        "Р’РµР»РёРєРёР№"
     };
 
     private static float exp;
@@ -71,19 +71,19 @@ public static class PlayerAchievments
         {
             currentLevel++;
             PlayerPrefs.SetInt("level_saved", currentLevel);
-            Debug.Log("Сохранено значение уровня " +  currentLevel);
-            Debug.Log("Новый уровень: " + currentLevel);
+            Debug.Log("РЎРѕС…СЂР°РЅРµРЅРѕ Р·РЅР°С‡РµРЅРёРµ СѓСЂРѕРІРЅСЏ " +  currentLevel);
+            Debug.Log("РќРѕРІС‹Р№ СѓСЂРѕРІРµРЅСЊ: " + currentLevel);
 
             MasteryUp();
 
-            // Увеличиваем количество опыта, необходимого для следующего уровня
+            // РЈРІРµР»РёС‡РёРІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РѕРїС‹С‚Р°, РЅРµРѕР±С…РѕРґРёРјРѕРіРѕ РґР»СЏ СЃР»РµРґСѓСЋС‰РµРіРѕ СѓСЂРѕРІРЅСЏ
             previousExpForLevelUp = currentExpForLevelUp;
             currentExpForLevelUp += (int)(BASE_EXP * Mathf.Pow(EXP_MULTIPLIER, currentLevel));
             PlayerPrefs.SetInt("previousExpForLevelUp_saved", previousExpForLevelUp);
             PlayerPrefs.SetInt("currentExpForLevelUp_saved", currentExpForLevelUp);
-            Debug.Log("До следующего уровня: " + (currentExpForLevelUp - exp));
+            Debug.Log("Р”Рѕ СЃР»РµРґСѓСЋС‰РµРіРѕ СѓСЂРѕРІРЅСЏ: " + (currentExpForLevelUp - exp));
 
-            LevelUp(); // Рекурсивно повышаем уровень, пока очки опыта не уравновесятся
+            LevelUp(); // Р РµРєСѓСЂСЃРёРІРЅРѕ РїРѕРІС‹С€Р°РµРј СѓСЂРѕРІРµРЅСЊ, РїРѕРєР° РѕС‡РєРё РѕРїС‹С‚Р° РЅРµ СѓСЂР°РІРЅРѕРІРµСЃСЏС‚СЃСЏ
         }
     }
 
@@ -100,14 +100,14 @@ public static class PlayerAchievments
         {
             currentMastery = PLAYER_MASTERIES[masteryIndex];
             PlayerPrefs.SetString("mastery_saved", currentMastery);
-            Debug.Log("Новый ранг: " + currentMastery);
+            Debug.Log("РќРѕРІС‹Р№ СЂР°РЅРі: " + currentMastery);
         }
     }
 
     public static void AddTimeBonus(int expBonus)
     {
         exp += expBonus;
-        Debug.Log("Бонус за время: " + expBonus);
-        Debug.Log("До следующего уровня: " + (currentExpForLevelUp - exp));
+        Debug.Log("Р‘РѕРЅСѓСЃ Р·Р° РІСЂРµРјСЏ: " + expBonus);
+        Debug.Log("Р”Рѕ СЃР»РµРґСѓСЋС‰РµРіРѕ СѓСЂРѕРІРЅСЏ: " + (currentExpForLevelUp - exp));
     }
 }

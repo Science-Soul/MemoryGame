@@ -190,10 +190,10 @@ public class Desk : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
                 int bonus = BASE_TIME_BONUS * uiManager.timer.TimeBonusMultiplier(baseBonusTime);
                 AddTimeBonus(bonus);
-                ExpAdd(EXP_FOR_LEVEL_COMPLETE);
+                ExpAdd(EXP_FOR_LEVEL_COMPLETE * currentDifficulty.ExpMultiplier);
                 uiManager.UpdateExpUI(Exp, PreviousExpForLevelUp, CurrentExpForLevelUp);
                 uiManager.UpdateMasteryText(CurrentLevel, CurrentMastery);
-                uiManager.winScreen.ShowWinScreen(EXP_FOR_LEVEL_COMPLETE, bonus);
+                uiManager.winScreen.ShowWinScreen(EXP_FOR_LEVEL_COMPLETE * currentDifficulty.ExpMultiplier, bonus);
             }
         }
         else

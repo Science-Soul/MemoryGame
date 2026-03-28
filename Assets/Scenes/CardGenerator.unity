@@ -802,7 +802,7 @@ MonoBehaviour:
   - {fileID: 5732690546427659550, guid: e18febb4b1f79cd4dbaa7751ea90a139, type: 3}
   - {fileID: 4462987401167010749, guid: 30325111292ecf04b9116301377bfe8a, type: 3}
   - {fileID: 7599318413460112087, guid: e6f6b2907a49d4b46b87944dbc7cdf56, type: 3}
-  deckStyleA: {fileID: 11400000, guid: 424c0086d5b8baa4ca4af19b236641e6, type: 2}
+  deckStyleA: {fileID: 11400000, guid: 3a6bca5c9e54eac4aa17d99d3734d050, type: 2}
   deckStyleB: {fileID: 11400000, guid: 424c0086d5b8baa4ca4af19b236641e6, type: 2}
 --- !u!114 &1113963786
 MonoBehaviour:
@@ -829,6 +829,7 @@ GameObject:
   - component: {fileID: 1149100700}
   - component: {fileID: 1149100699}
   - component: {fileID: 1149100701}
+  - component: {fileID: 1149100702}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -913,10 +914,106 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 256, y: 351}
+  m_CellSize: {x: 256, y: 336}
   m_Spacing: {x: -124, y: -150}
   m_Constraint: 2
   m_ConstraintCount: 4
+--- !u!114 &1149100702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149100697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1800fa1ac604d284daeb248e0c17b970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRayUIController
+  xrayMaterial: {fileID: 2100000, guid: 748354482ae14864eb47bd2b5213b08b, type: 2}
+  defaultRadius: 150
+--- !u!1 &1965742572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1965742575}
+  - component: {fileID: 1965742574}
+  - component: {fileID: 1965742573}
+  m_Layer: 0
+  m_Name: CardGeneratorWide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1965742573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965742572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7358613751761d4283e18ef98e85046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinCheck
+  lvlText: {fileID: 0}
+--- !u!114 &1965742574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965742572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e006914c84f9a44591234dc2e49a99d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MemoryGame
+  container: {fileID: 1149100698}
+  cardPrefab: {fileID: 7611491092792979119, guid: 1b9e7892b6297e04fa7e5bb9afce5c4b, type: 3}
+  rows: 4
+  columns: 5
+  spacing: 10
+  bounceDuration: 0.4
+  cardSprites: []
+  backSprite: {fileID: 21300000, guid: d7bcce91ca715574a84897c8d4dc5e58, type: 3}
+  cardPrefabs:
+  - {fileID: 7611491092792979119, guid: 1b9e7892b6297e04fa7e5bb9afce5c4b, type: 3}
+  - {fileID: 2466255452928212302, guid: 9b19470f70c41e34a9e08d568cb1d58c, type: 3}
+  - {fileID: 773817253237863813, guid: 0cfda6386d43ddd4e91559d0e99fbbd1, type: 3}
+  - {fileID: 4783907179071270639, guid: 6b492d849943f6b4ca2b926af7b0b700, type: 3}
+  - {fileID: 6889255376355938547, guid: 34ba7181d1cf9394ba1b0f25257a8215, type: 3}
+  - {fileID: 7192434340533831632, guid: cc121e1d207785543bab0a6cc24a920e, type: 3}
+  - {fileID: 6721943301490647795, guid: 128ec80fdee7b81478f98bc5d0e4f8b4, type: 3}
+  - {fileID: 3333136491989577746, guid: 3f4b1887ac383de44a949cfc8466e554, type: 3}
+  - {fileID: 7330633572315413865, guid: c54470db82cbb764a8d430102b2c3f03, type: 3}
+  - {fileID: 1591816170806319364, guid: 1962f0839675130439fd9754f1d60b59, type: 3}
+  - {fileID: 5732690546427659550, guid: ff59a4ac91bb6d442b140f211d8533f7, type: 3}
+  - {fileID: 4462987401167010749, guid: 2f631500ed634314d934aea03d359111, type: 3}
+  - {fileID: 7599318413460112087, guid: 4e3356a9766ef234e9c4e5cadaba4cfe, type: 3}
+  deckStyleA: {fileID: 11400000, guid: 3a6bca5c9e54eac4aa17d99d3734d050, type: 2}
+  deckStyleB: {fileID: 11400000, guid: 424c0086d5b8baa4ca4af19b236641e6, type: 2}
+--- !u!4 &1965742575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965742572}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6105, y: 1.50142, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -926,3 +1023,4 @@ SceneRoots:
   - {fileID: 173543503}
   - {fileID: 1050708946}
   - {fileID: 1113963784}
+  - {fileID: 1965742575}
