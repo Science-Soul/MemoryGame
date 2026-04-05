@@ -428,6 +428,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8d98f7f8a34be84fae53a4a04c407c6, type: 3}
+--- !u!114 &370095982 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1541900998891824479, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
 --- !u!1 &374090347
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +477,17 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &417723936 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3679352777147519080, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
 --- !u!114 &417813392 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5694499689002750703, guid: a8d98f7f8a34be84fae53a4a04c407c6, type: 3}
@@ -477,6 +499,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &435740416 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4194812313345906214, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
 --- !u!1001 &461885869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -617,6 +650,58 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: buttons.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1027313218}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[1]'
+      value: 
+      objectReference: {fileID: 417723936}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1788128366}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[3]'
+      value: 
+      objectReference: {fileID: 938250783}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[4]'
+      value: 
+      objectReference: {fileID: 2138041860}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1165493139}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[6]'
+      value: 
+      objectReference: {fileID: 370095982}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[7]'
+      value: 
+      objectReference: {fileID: 1163999052}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[8]'
+      value: 
+      objectReference: {fileID: 1923451227}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[9]'
+      value: 
+      objectReference: {fileID: 1557180007}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[10]'
+      value: 
+      objectReference: {fileID: 1716732397}
+    - target: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+      propertyPath: 'buttons.Array.data[11]'
+      value: 
+      objectReference: {fileID: 435740416}
     - target: {fileID: 4988790844859377946, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -632,10 +717,6 @@ PrefabInstance:
     - target: {fileID: 4988790844859377946, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284277913003731398, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5940177570240449489, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
       propertyPath: m_Pivot.x
@@ -770,6 +851,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+--- !u!114 &461885870 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4014fa83131f4764e8ab6a3e591ff911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyManager
 --- !u!224 &504868749 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8120042610495657157, guid: 24f3f0bae31b4af4fa98e748d2eb32c8, type: 3}
@@ -1588,6 +1680,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 887677813}
   m_CullTransparentMesh: 1
+--- !u!114 &938250783 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7311688273801982889, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
+--- !u!114 &1027313218 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3754347845500048689, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
 --- !u!224 &1142480946 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1391188517754453819, guid: a8d98f7f8a34be84fae53a4a04c407c6, type: 3}
@@ -1604,6 +1718,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67e2177f4b2d7d479e12d28a9d0ddac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WinScreen
+--- !u!114 &1163999052 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2421433001225198768, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
+--- !u!114 &1165493139 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2181808943878437302, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
 --- !u!1 &1211836444
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,6 +2115,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530807493}
   m_CullTransparentMesh: 1
+--- !u!114 &1557180007 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6171004915983866974, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
 --- !u!1 &1642182077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2161,6 +2308,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1716732397 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2498167130480715791, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
+--- !u!114 &1788128366 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3547900141954877034, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
 --- !u!1 &1868283433
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,6 +2363,7 @@ MonoBehaviour:
   _bonusCardDecks:
   - {fileID: 11400000, guid: 17ec9618460a01f419adc67fcd529815, type: 2}
   _levelSettings: {fileID: 11400000, guid: f531c240af7cbe7498d01b1cc1644fd8, type: 2}
+  _difficultyManager: {fileID: 461885870}
 --- !u!114 &1868283435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2378,6 +2548,17 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1923451227 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 560195030955742547, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
 --- !u!1 &1991672550
 GameObject:
   m_ObjectHideFlags: 0
@@ -2683,6 +2864,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2138041860 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2905059147751170193, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 461885869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2b26b5b3fc5c4a822f588017a2198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseDifficultyButton
 --- !u!1001 &2146768727
 PrefabInstance:
   m_ObjectHideFlags: 0

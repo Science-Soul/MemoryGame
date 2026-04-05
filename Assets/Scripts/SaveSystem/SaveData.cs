@@ -10,6 +10,8 @@ public class SaveData
     // Список разблокированных уровней
     public List<ResourceModel.LevelResourceType> UnlockedLevels = new() { ResourceModel.LevelResourceType.GOLD};
 
+    public int UnlockedLevelDifficulties = 2;
+
     public int Gold = 0;
     public int Food = 0;
     public int Materials = 0;

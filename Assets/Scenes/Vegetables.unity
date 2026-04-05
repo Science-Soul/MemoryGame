@@ -633,10 +633,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5284277913003731398, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 5940177570240449489, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -770,6 +766,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+--- !u!114 &457595702 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4616593968776004051, guid: c64ce3cc15c9a1b4a8de08384efd3847, type: 3}
+  m_PrefabInstance: {fileID: 457595701}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4014fa83131f4764e8ab6a3e591ff911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyManager
 --- !u!224 &504868749 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8120042610495657157, guid: 24f3f0bae31b4af4fa98e748d2eb32c8, type: 3}
@@ -2194,6 +2201,7 @@ MonoBehaviour:
   _bonusCardDecks:
   - {fileID: 11400000, guid: 17ec9618460a01f419adc67fcd529815, type: 2}
   _levelSettings: {fileID: 11400000, guid: c86494e345cd36f4dbf7ea2e4fcaac8b, type: 2}
+  _difficultyManager: {fileID: 457595702}
 --- !u!114 &1868283435
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,13 +33,17 @@ public class Desk : MonoBehaviour
     private SignalBus _signalBus;
     private ResourceModel _resourceModel;
     private LevelSettings _levelSettings;
+    private DifficultyManager _difficultyManager;
+    private ISaveStorage _storage;
 
 
     [Inject]
-    public void Construct(SignalBus signalBus, ResourceModel resourceModel, LevelSettings levelSettings)
+    public void Construct(SignalBus signalBus, ResourceModel resourceModel, LevelSettings levelSettings, DifficultyManager difficultyManager, ISaveStorage storage)
     {
         _resourceModel = resourceModel;
         _levelSettings = levelSettings;
+        _difficultyManager = difficultyManager;
+        _storage = storage;
 
         _signalBus = signalBus;
         _signalBus.Subscribe<StartGameSignal>(OnGameStarted);
@@ -194,9 +198,16 @@ public class Desk : MonoBehaviour
                 int earnedExp = EXP_FOR_LEVEL_COMPLETE * currentDifficulty.ExpMultiplier;
                 ExpAdd(earnedExp);
                 uiManager.UpdateUI();
-                /*uiManager.UpdateExpUI(Exp, PreviousExpForLevelUp, CurrentExpForLevelUp);
-                uiManager.UpdateMasteryText(CurrentLevel, CurrentMastery);*/
                 uiManager.winScreen.ShowWinScreen(earnedExp, bonus);
+
+                var data = _storage.Load();
+                int unlockedLevelDifficulties = data.UnlockedLevelDifficulties;
+                if (unlockedLevelDifficulties < _difficultyManager.LevelDifficultiesCount && currentDifficulty == _difficultyManager.buttons[unlockedLevelDifficulties - 1].difficultyLevel)
+                {
+                    Debug.Log("Открыт новый уровень сложности");
+                    data.UnlockedLevelDifficulties++;
+                    _storage.Save(data);
+                }
             }
         }
         else

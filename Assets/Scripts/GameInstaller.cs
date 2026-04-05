@@ -6,11 +6,13 @@ public class GameInstaller : MonoInstaller
 {
     [SerializeField] List<BonusCardDeckSO> _bonusCardDecks;
     [SerializeField] LevelSettings _levelSettings;
+    [SerializeField] DifficultyManager _difficultyManager;
 
     public override void InstallBindings()
     {
         SignalBusInstaller.Install(Container);
         Container.BindInstance(_levelSettings).AsSingle();
+        Container.BindInstance(_difficultyManager).AsSingle();
 
         Container.DeclareSignal<BonusCollectedSignal>().OptionalSubscriberWithWarning();
         Container.DeclareSignal<ChangeDeckSignal>();
