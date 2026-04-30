@@ -10,8 +10,7 @@ public class LevelUnlockService
 
     public bool IsUnlocked(LevelSettings level)
     {
-        var data = _storage.Load();
-        return data.UnlockedLevels.Contains(level.levelType);
+        return _storage.Load().UnlockedLevels.Contains(level.levelType);
     }
 
     public bool TryUnlockLevel(LevelSettings level)
@@ -29,6 +28,7 @@ public class LevelUnlockService
                 _resources.TrySpendResource(cost.type, cost.amount);
             }
 
+            level.isOpened = true;
             var data = _storage.Load();
             data.UnlockedLevels.Add(level.levelType);
             _storage.Save(data);
