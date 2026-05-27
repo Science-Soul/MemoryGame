@@ -9,7 +9,17 @@ public class LevelSettings : ScriptableObject
 {
     public LevelResourceType levelType; // Какой из 7 ресурсов собираем на уровне
     public int rewardAmount = 10;        // Сколько даем за одну пару
-    public bool isOpened = false;
+
+    private bool _isUnlocked = false;
+    public bool IsUnlocked()
+    {
+        return _isUnlocked;
+    }
+
+    public void SetUnlocked()
+    {
+        _isUnlocked = true;
+    }
 
     public AssetReference sceneReference; // Для загрузки сцены через Addressables
     [Serializable]

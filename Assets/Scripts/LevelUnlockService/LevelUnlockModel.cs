@@ -3,14 +3,16 @@ using Assets.Scripts;
 using UnityEngine;
 using Zenject;
 
-public class LevelUnlockService
+public class LevelUnlockModel
 {
     [Inject] private ResourceModel _resources;
     [Inject] private ISaveStorage _storage;
+    private bool isLevelUnlocked;
 
     public bool IsUnlocked(LevelSettings level)
     {
-        return _storage.Load().UnlockedLevels.Contains(level.levelType);
+        //return _storage.Load().UnlockedLevels.Contains(level.levelType);
+        return level.IsUnlocked();
     }
 
     public bool TryUnlockLevel(LevelSettings level)
@@ -28,10 +30,10 @@ public class LevelUnlockService
                 _resources.TrySpendResource(cost.type, cost.amount);
             }
 
-            level.isOpened = true;
-            var data = _storage.Load();
+            level.SetUnlocked();
+            /*var data = _storage.Load();
             data.UnlockedLevels.Add(level.levelType);
-            _storage.Save(data);
+            _storage.Save(data);*/
 
             Debug.Log($"<color=green>Уровень {level.levelType} теперь доступен!</color>");
             return true;
