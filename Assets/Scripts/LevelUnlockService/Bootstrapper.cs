@@ -4,13 +4,21 @@ using Zenject;
 
 public class Bootstrapper : MonoBehaviour
 {
-    //[SerializeField] List<LevelUnlockView> _levelUnlockButtons; 
+    [SerializeField] LevelSettings _level;
     [SerializeField] LevelUnlockView _view;
+    private LevelUnlockPresenter _presenter;
     [Inject] LevelUnlockModel _model;
-    void Awake()
+
+    public void Awake()
     {
-        LevelUnlockPresenter _presenter = new LevelUnlockPresenter(_model, _view);
+        _view.Initialize(_level);
+        _presenter = new LevelUnlockPresenter(_model, _view);
         
         Debug.Log("MVP initialized");
+    }
+
+    private void OnDestroy()
+    {
+        _presenter.Dispose();
     }
 }

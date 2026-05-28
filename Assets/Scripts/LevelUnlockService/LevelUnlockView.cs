@@ -4,22 +4,26 @@ using UnityEngine.UI;
 using Zenject;
 using System.Linq;
 using static LevelSettings;
+using System;
 
 public class LevelUnlockView : MonoBehaviour
 {
     [SerializeField] Button _unlockLevelButton;
     private TMP_Text _unlockLevelText;
     [SerializeField] Button _runLevelButton;
-    [SerializeField] LevelSettings _levelSettings;
-    [Inject] private LevelUnlockModel _levelUnlockModel;
+    private LevelSettings _levelSettings;
+
+    //[Inject] private LevelUnlockModel _levelUnlockModel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
         //_button = GetComponent<Button>();
-        /*_unlockLevelText = _unlockLevelButton.GetComponentInChildren<TMP_Text>();
-        _unlockLevelText.color = Color.black;*/
+        _unlockLevelText = _unlockLevelButton.GetComponentInChildren<TMP_Text>();
+        //_unlockLevelText.color = Color.black;*/
         _unlockLevelText.text = string.Join("\n", _levelSettings.resourcesCost.Select(x => $"{x.type}: {x.amount}"));
+
+        _unlockLevelButton.onClick.AddListener(() => OnClick?.Invoke());
 
         /*if (_levelUnlockModel.IsUnlocked(_levelSettings))
         {
@@ -43,14 +47,16 @@ public class LevelUnlockView : MonoBehaviour
 
     }
 
+    public event Action OnClick;
+
     private void OnDestroy()
     {
         _unlockLevelButton.onClick.RemoveAllListeners();
     }
 
-    public LevelSettings GetLevelSettings()
+    public void Initialize(LevelSettings levelSettings)
     {
-        return _levelSettings;
+        _levelSettings = levelSettings;
     }
 
     public void SetState(bool isUnlocked)

@@ -5,45 +5,54 @@ using Zenject;
 
 public class LevelUnlockModel
 {
-    [Inject] private ResourceModel _resources;
+    [Inject] ResourceModel _resources;
     [Inject] private ISaveStorage _storage;
+    private LevelSettings _level;
     private bool isLevelUnlocked;
 
-    public bool IsUnlocked(LevelSettings level)
+    public LevelUnlockModel(LevelSettings level)
     {
-        //return _storage.Load().UnlockedLevels.Contains(level.levelType);
-        return level.IsUnlocked();
+        _level = level;
+        Debug.Log("Level init");
     }
 
-    public bool TryUnlockLevel(LevelSettings level)
+    public bool IsUnlocked()
     {
-        if (IsUnlocked(level))
+        //return _storage.Load().UnlockedLevels.Contains(level.levelType);
+        return _level.IsUnlocked();
+    }
+
+    public bool TryUnlockLevel()
+    {
+        if (IsUnlocked())
         {
             Debug.Log("Уровень уже разблокирован!");
             return false;
         }
 
-        if (IsResourcesEnough(level))
+        if (IsResourcesEnough())
         {
-            foreach (var cost in level.resourcesCost)
+            foreach (var cost in _level.resourcesCost)
             {
                 _resources.TrySpendResource(cost.type, cost.amount);
             }
 
-            level.SetUnlocked();
+            _level.SetUnlocked();
             /*var data = _storage.Load();
             data.UnlockedLevels.Add(level.levelType);
             _storage.Save(data);*/
 
-            Debug.Log($"<color=green>Уровень {level.levelType} теперь доступен!</color>");
+            Debug.Log($"<color=green>Уровень {_level.levelType} теперь доступен!</color>");
             return true;
         }
 
         return false;
     }
 
-    public bool IsResourcesEnough(LevelSettings level)
+    public bool IsResourcesEnough()
     {
-        return level.resourcesCost.All(cost => _resources.GetResourceAvailable(cost.type) >= cost.amount);
+        Debug.Log("level " + _level);
+        Debug.Log("resources " + _resources);
+        return _level.resourcesCost.All(cost => _resources.GetResourceAvailable(cost.type) >= cost.amount);
     }
 }

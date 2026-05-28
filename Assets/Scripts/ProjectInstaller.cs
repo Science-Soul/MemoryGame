@@ -5,13 +5,15 @@ namespace Assets.Scripts
     public class ProjectInstaller : MonoInstaller
     {
         [SerializeField] GameObject hudPrefab;
+        [SerializeField] LevelSettings levelSettings;
 
         public override void InstallBindings()
         {
             Container.Bind<ISaveStorage>().To<LocalJsonStorage>().AsSingle();
 
-            Container.Bind<ResourceModel>().AsSingle();
-            Container.Bind<LevelUnlockModel>().AsSingle();
+            Container.BindInstance(levelSettings).AsSingle();
+            Container.Bind<ResourceModel>().AsSingle().NonLazy();
+            Container.Bind<LevelUnlockModel>().AsSingle().NonLazy();
             Container.BindInstance(hudPrefab).WhenInjectedInto<HudStarter>();
             Container.BindInterfacesTo<HudStarter>().AsSingle();
         }

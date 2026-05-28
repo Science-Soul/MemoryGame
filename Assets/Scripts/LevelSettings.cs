@@ -21,6 +21,16 @@ public class LevelSettings : ScriptableObject
         _isUnlocked = true;
     }
 
+    public void SetLocked()
+    {
+        _isUnlocked = false;
+    }
+
+    private void OnEnable()
+    {
+        SetLocked();
+    }
+
     public AssetReference sceneReference; // Для загрузки сцены через Addressables
     [Serializable]
     public struct LevelCost
