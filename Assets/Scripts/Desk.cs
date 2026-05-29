@@ -206,8 +206,8 @@ public class Desk : MonoBehaviour
                 {
                     Debug.Log("Открыт новый уровень сложности");
                     data.UnlockedLevelDifficulties++;
-                    _storage.Save(data);
                 }
+                    _storage.Save(data);
             }
         }
         else

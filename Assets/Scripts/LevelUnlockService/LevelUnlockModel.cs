@@ -7,8 +7,9 @@ public class LevelUnlockModel
 {
     [Inject] ResourceModel _resources;
     [Inject] private ISaveStorage _storage;
+    private SaveData _saveData;
     private LevelSettings _level;
-    private bool isLevelUnlocked;
+
 
     public LevelUnlockModel(LevelSettings level)
     {
@@ -16,10 +17,16 @@ public class LevelUnlockModel
         Debug.Log("Level init");
     }
 
+    public void Initialize()
+    {
+        _saveData = _storage.Load();
+    }
+
     public bool IsUnlocked()
     {
         //return _storage.Load().UnlockedLevels.Contains(level.levelType);
-        return _level.IsUnlocked();
+        //return _level.IsUnlocked();
+        return _saveData.UnlockedLevels.Contains(_level.levelType);
     }
 
     public bool TryUnlockLevel()
@@ -43,6 +50,12 @@ public class LevelUnlockModel
             _storage.Save(data);*/
 
             Debug.Log($"<color=green>Уровень {_level.levelType} теперь доступен!</color>");
+
+            if (!IsUnlocked())
+            {
+                _saveData.UnlockedLevels.Add(_level.levelType);
+                _storage.Save(_saveData);
+            }
             return true;
         }
 

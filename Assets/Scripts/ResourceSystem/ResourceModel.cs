@@ -1,6 +1,6 @@
 ﻿using System;
 using R3;
-using UnityEditor.Build.Pipeline;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -43,13 +43,14 @@ namespace Assets.Scripts
             Mana = new BindableReactiveProperty<int>(data.Mana);
 
             // Авто-сохранение при каждом изменении (пропускаем сохранение при загрузке)
-            Gold.Skip(1).Debounce(TimeSpan.FromSeconds(1)).Subscribe(val => SaveProgress()).AddTo(_disposables);
-            Food.Skip(1).Debounce(TimeSpan.FromSeconds(1)).Subscribe(val => SaveProgress()).AddTo(_disposables);
-            Materials.Skip(1).Debounce(TimeSpan.FromSeconds(1)).Subscribe(val => SaveProgress()).AddTo(_disposables);
-            Seasons.Skip(1).Debounce(TimeSpan.FromSeconds(1)).Subscribe(val => SaveProgress()).AddTo(_disposables);
-            Science.Skip(1).Debounce(TimeSpan.FromSeconds(1)).Subscribe(val => SaveProgress()).AddTo(_disposables);
-            Prediction.Skip(1).Debounce(TimeSpan.FromSeconds(1)).Subscribe(val => SaveProgress()).AddTo(_disposables);
-            Mana.Skip(1).Debounce(TimeSpan.FromSeconds(1)).Subscribe(val => SaveProgress()).AddTo(_disposables);
+            int seconds = 10;
+            Gold.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Food.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Materials.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Seasons.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Science.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Prediction.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Mana.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
         }
 
         private void SaveProgress()
@@ -63,6 +64,7 @@ namespace Assets.Scripts
             data.Prediction = Prediction.Value;
             data.Mana = Mana.Value;
             _storage.Save(data);
+            PlayerPrefs.Save();
         }
 
         public void Dispose()

@@ -11,6 +11,7 @@ public class Bootstrapper : MonoBehaviour
 
     public void Awake()
     {
+        _model.Initialize();
         _view.Initialize(_level);
         _presenter = new LevelUnlockPresenter(_model, _view);
         
