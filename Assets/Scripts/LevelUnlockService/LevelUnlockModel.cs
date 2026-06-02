@@ -8,52 +8,39 @@ public class LevelUnlockModel
     [Inject] ResourceModel _resources;
     [Inject] private ISaveStorage _storage;
     private SaveData _saveData;
-    private LevelSettings _level;
-
-
-    public LevelUnlockModel(LevelSettings level)
-    {
-        _level = level;
-        Debug.Log("Level init");
-    }
 
     public void Initialize()
     {
         _saveData = _storage.Load();
     }
 
-    public bool IsUnlocked()
+    public bool IsUnlocked(LevelSettings level)
     {
-        //return _storage.Load().UnlockedLevels.Contains(level.levelType);
-        //return _level.IsUnlocked();
-        return _saveData.UnlockedLevels.Contains(_level.levelType);
+        return _saveData.UnlockedLevels.Contains(level.levelType);
     }
 
-    public bool TryUnlockLevel()
+    public bool TryUnlockLevel(LevelSettings level)
     {
-        if (IsUnlocked())
+        if (IsUnlocked(level))
         {
             Debug.Log("Уровень уже разблокирован!");
             return false;
         }
 
-        if (IsResourcesEnough())
+        if (IsResourcesEnough(level))
         {
-            foreach (var cost in _level.resourcesCost)
+            foreach (var cost in level.resourcesCost)
             {
                 _resources.TrySpendResource(cost.type, cost.amount);
             }
 
-            _level.SetUnlocked();
-            /*var data = _storage.Load();
-            data.UnlockedLevels.Add(level.levelType);
-            _storage.Save(data);*/
+            level.SetUnlocked();
 
-            Debug.Log($"<color=green>Уровень {_level.levelType} теперь доступен!</color>");
+            Debug.Log($"<color=green>Уровень {level.levelType} теперь доступен!</color>");
 
-            if (!IsUnlocked())
+            if (!IsUnlocked(level))
             {
-                _saveData.UnlockedLevels.Add(_level.levelType);
+                _saveData.UnlockedLevels.Add(level.levelType);
                 _storage.Save(_saveData);
             }
             return true;
@@ -62,10 +49,8 @@ public class LevelUnlockModel
         return false;
     }
 
-    public bool IsResourcesEnough()
+    public bool IsResourcesEnough(LevelSettings level)
     {
-        Debug.Log("level " + _level);
-        Debug.Log("resources " + _resources);
-        return _level.resourcesCost.All(cost => _resources.GetResourceAvailable(cost.type) >= cost.amount);
+        return level.resourcesCost.All(cost => _resources.GetResourceAvailable(cost.type) >= cost.amount);
     }
 }

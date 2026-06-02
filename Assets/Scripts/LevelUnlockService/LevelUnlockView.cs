@@ -8,43 +8,19 @@ using System;
 
 public class LevelUnlockView : MonoBehaviour
 {
+    [SerializeField] LevelSettings _levelSettings;
     [SerializeField] Button _unlockLevelButton;
-    private TMP_Text _unlockLevelText;
     [SerializeField] Button _runLevelButton;
-    private LevelSettings _levelSettings;
+    private TMP_Text _unlockLevelText;
 
     //[Inject] private LevelUnlockModel _levelUnlockModel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //_button = GetComponent<Button>();
         _unlockLevelText = _unlockLevelButton.GetComponentInChildren<TMP_Text>();
-        //_unlockLevelText.color = Color.black;*/
         _unlockLevelText.text = string.Join("\n", _levelSettings.resourcesCost.Select(x => $"{x.type}: {x.amount}"));
-
         _unlockLevelButton.onClick.AddListener(() => OnClick?.Invoke());
-
-        /*if (_levelUnlockModel.IsUnlocked(_levelSettings))
-        {
-            _unlockLevelButton.gameObject.SetActive(false);
-        }
-        else if (_levelUnlockModel.IsResourcesEnough(_levelSettings))
-        {
-            _unlockLevelButton.onClick.AddListener(() =>
-            {
-                if (_levelUnlockModel.TryUnlockLevel(_levelSettings))
-                {
-                    _unlockLevelButton.gameObject.SetActive(false);
-                }
-            });
-        }
-        else
-        {
-            text.color = Color.red;
-            _unlockLevelButton.interactable = false;
-        }*/
-
     }
 
     public event Action OnClick;
@@ -52,11 +28,6 @@ public class LevelUnlockView : MonoBehaviour
     private void OnDestroy()
     {
         _unlockLevelButton.onClick.RemoveAllListeners();
-    }
-
-    public void Initialize(LevelSettings levelSettings)
-    {
-        _levelSettings = levelSettings;
     }
 
     public void SetState(bool isUnlocked)
@@ -67,6 +38,7 @@ public class LevelUnlockView : MonoBehaviour
 
     public void SetInteractable(bool isResourcesEnough)
     {
+        Debug.Log(_levelSettings + " resources enough " + isResourcesEnough);
         _unlockLevelButton.interactable = isResourcesEnough;
         _unlockLevelText = _unlockLevelButton.GetComponentInChildren<TMP_Text>();
         if (isResourcesEnough)
@@ -77,5 +49,10 @@ public class LevelUnlockView : MonoBehaviour
         {
             _unlockLevelText.color = Color.red;
         }
+    }
+
+    public LevelSettings GetLevelSettings()
+    {
+        return _levelSettings;
     }
 }
