@@ -3,6 +3,7 @@ using UnityEngine;
 using static Assets.Scripts.ResourceModel;
 using UnityEngine.AddressableAssets;
 using System;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "LevelSettings", menuName = "Game/LevelSettings")]
 public class LevelSettings : ScriptableObject
@@ -32,6 +33,7 @@ public class LevelSettings : ScriptableObject
     }
 
     public AssetReference sceneReference; // Для загрузки сцены через Addressables
+
     [Serializable]
     public struct LevelCost
     {
@@ -40,5 +42,5 @@ public class LevelSettings : ScriptableObject
     }
 
     public LevelCost[] resourcesCost;
-    
+    public BonusCardDeckSO bonusCardDeckSO;
 }

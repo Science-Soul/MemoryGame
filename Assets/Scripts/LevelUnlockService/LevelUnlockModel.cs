@@ -51,6 +51,6 @@ public class LevelUnlockModel
 
     public bool IsResourcesEnough(LevelSettings level)
     {
-        return level.resourcesCost.All(cost => _resources.GetResourceAvailable(cost.type) >= cost.amount);
+        return level.resourcesCost.All(cost => _resources.GetResourceAvailable(cost.type) >= cost.amount); // && level.bonusCardDeckSO.IsComplete;
     }
 }
