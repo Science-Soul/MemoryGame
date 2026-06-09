@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,5 +7,15 @@ public class BonusCardDeckSO : ScriptableObject
 {
     public List<BonusCard> bonusCards;
 
-    public bool IsComplete => bonusCards.All(c => c.IsUnlocked);
+    public bool IsComplete
+    {
+        get
+        {
+            return bonusCards.All(c => c.IsUnlocked);
+        }
+        set
+        {
+            IsComplete = true;
+        }
+    }
 }

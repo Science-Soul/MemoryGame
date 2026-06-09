@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -27,7 +27,7 @@ public class CollectionService : IInitializable, IDisposable
         {
             foreach (var card in deck.bonusCards)
             {
-                card.IsUnlocked = _currentSave.UnlockedCardNames.Contains(card.name); // Имена карт из разных колод должны быть уникальными!!!
+                card.IsUnlocked = _currentSave.UnlockedCardNames.Contains(card.name); // РРјРµРЅР° РєР°СЂС‚ РёР· СЂР°Р·РЅС‹С… РєРѕР»РѕРґ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СѓРЅРёРєР°Р»СЊРЅС‹РјРё!!!
             }
         }
     }
@@ -46,42 +46,42 @@ public class CollectionService : IInitializable, IDisposable
         {
             var cardToUnlock = signal.unlockedCard;
             cardToUnlock.UnlockCard();
-            Debug.Log($"<color=cyan>[Колода: {activeDeck.name}]</color> Открыта карта: {cardToUnlock.name}");
+            Debug.Log($"<color=cyan>[РљРѕР»РѕРґР°: {activeDeck.name}]</color> РћС‚РєСЂС‹С‚Р° РєР°СЂС‚Р°: {cardToUnlock.name}");
             if (!_currentSave.UnlockedCardNames.Contains(cardToUnlock.name))
             {
                 _currentSave.UnlockedCardNames.Add(cardToUnlock.name);
 
-                // Сохраняем обновленный список в JSON
+                // РЎРѕС…СЂР°РЅСЏРµРј РѕР±РЅРѕРІР»РµРЅРЅС‹Р№ СЃРїРёСЃРѕРє РІ JSON
                 _saveStorage.Save(_currentSave);
             }
 
-            // Проверяем, не закрыли ли мы всю колоду этим ходом
+            // РџСЂРѕРІРµСЂСЏРµРј, РЅРµ Р·Р°РєСЂС‹Р»Рё Р»Рё РјС‹ РІСЃСЋ РєРѕР»РѕРґСѓ СЌС‚РёРј С…РѕРґРѕРј
             if (activeDeck.IsComplete)
             {
                 _signalBus.Fire(new DeckUnlockedSignal());
-                Debug.Log($"<color=gold>ПОЗДРАВЛЯЕМ! Колода {activeDeck.name} полностью собрана!</color>");
+                Debug.Log($"<color=gold>РџРћР—Р”Р РђР’Р›РЇР•Рњ! РљРѕР»РѕРґР° {activeDeck.name} РїРѕР»РЅРѕСЃС‚СЊСЋ СЃРѕР±СЂР°РЅР°!</color>");
             }
         }
         else
         {
             _signalBus.Fire(new DeckUnlockedSignal());
-            Debug.Log("Все 3 колоды уже собраны! Вы мастер игры.");
+            Debug.Log("Р’СЃРµ 3 РєРѕР»РѕРґС‹ СѓР¶Рµ СЃРѕР±СЂР°РЅС‹! Р’С‹ РјР°СЃС‚РµСЂ РёРіСЂС‹.");
         }
     }
 
     private void OnDeckUnlocked()
     {
-        Debug.Log("Колода открыта. Сигнал отправлен.");
+        Debug.Log("РљРѕР»РѕРґР° РѕС‚РєСЂС‹С‚Р°. РЎРёРіРЅР°Р» РѕС‚РїСЂР°РІР»РµРЅ.");
     }
 
     public BonusCard GetNextLockedCard()
     {
-        // Ищем в колодах первую попавшуюся закрытую карту
+        // РС‰РµРј РІ РєРѕР»РѕРґР°С… РїРµСЂРІСѓСЋ РїРѕРїР°РІС€СѓСЋСЃСЏ Р·Р°РєСЂС‹С‚СѓСЋ РєР°СЂС‚Сѓ
         var activeDeck = _allDecks.FirstOrDefault(d => !d.IsComplete);
 
         if (activeDeck == null)
         {
-            Debug.Log("<color=orange>[Collection] Все колоды уже собраны!</color>");
+            Debug.Log("<color=orange>[Collection] Р’СЃРµ РєРѕР»РѕРґС‹ СѓР¶Рµ СЃРѕР±СЂР°РЅС‹!</color>");
             return null;
         }
         else

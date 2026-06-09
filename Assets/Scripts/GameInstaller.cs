@@ -21,7 +21,7 @@ public class GameInstaller : MonoInstaller
         Container.BindInstance(GetComponentInChildren<Desk>()).AsSingle().NonLazy();
 
         Container.Bind<BonusPopup>().FromComponentInHierarchy().AsSingle();
-        Container.BindInstance(_bonusCardDecks).AsSingle();
+        Container.BindInstance(_bonusCardDecks).AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<BonusService>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<CollectionService>().AsSingle();

@@ -38,7 +38,6 @@ public class LevelUnlockView : MonoBehaviour
 
     public void SetInteractable(bool isResourcesEnough)
     {
-        Debug.Log(_levelSettings + " resources enough " + isResourcesEnough);
         _unlockLevelButton.interactable = isResourcesEnough;
         _unlockLevelText = _unlockLevelButton.GetComponentInChildren<TMP_Text>();
         if (isResourcesEnough)

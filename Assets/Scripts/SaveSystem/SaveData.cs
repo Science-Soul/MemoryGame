@@ -5,7 +5,7 @@ using Assets.Scripts;
 public class SaveData
 {
     // Список имен разблокированных карт
-    public List<string> UnlockedCardNames = new();
+    public List<string> UnlockedCardNames = new(); //Именно string, это сохраняется легче кастомного класса
 
     // Список разблокированных уровней
     public List<ResourceModel.LevelResourceType> UnlockedLevels = new() { ResourceModel.LevelResourceType.GOLD};

@@ -23,7 +23,7 @@ public class LevelUnlockPresenter : IDisposable
         
         _view.SetInteractable(_model.IsResourcesEnough(_level));
         _view.SetState(_model.IsUnlocked(_level));
-        Debug.Log("Presenter initialized");
+
     }
 
     private void OnBuyLevel(LevelSettings level)
