@@ -25,7 +25,11 @@ public class LevelUnlockModel
     private bool IsDeckComplete(LevelSettings level)
     {
         //return level.bonusCardDeckSO.bonusCards.Count == _saveData.UnlockedCardNames.Count;
-        return level.bonusCardDeckSO.bonusCards.All(c => _saveData.UnlockedCardNames.Contains(c.name));
+        if (level.bonusCardDeckSO.bonusCards.Count != 0)
+        {
+            return level.bonusCardDeckSO.bonusCards.All(c => _saveData.UnlockedCardNames.Contains(c.name));
+        }
+        return true;
     }
 
     public bool TryUnlockLevel(LevelSettings level)

@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class BonusCardDisplay : MonoBehaviour
 {
@@ -14,15 +14,16 @@ public class BonusCardDisplay : MonoBehaviour
         ApplyToQuad(_spriteFace, _rendererFace);
 
         _spriteBack = spriteBack;
-        ApplySpriteWithPropertyBlock(_spriteBack, _rendererBack);
+        //ApplySpriteWithPropertyBlock(_spriteBack, _rendererBack);
+        ApplyToQuadBack(_spriteBack, _rendererBack);
     }
 
     void ApplyToQuad(Sprite s, Renderer rend)
     {
         rend.material.mainTexture = s.texture;
 
-        // Рассчитываем UV-координаты конкретного спрайта в атласе
-        // Используем textureRect, чтобы найти положение спрайта на листе
+        // Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј UV-РєРѕРѕСЂРґРёРЅР°С‚С‹ РєРѕРЅРєСЂРµС‚РЅРѕРіРѕ СЃРїСЂР°Р№С‚Р° РІ Р°С‚Р»Р°СЃРµ
+        // РСЃРїРѕР»СЊР·СѓРµРј textureRect, С‡С‚РѕР±С‹ РЅР°Р№С‚Рё РїРѕР»РѕР¶РµРЅРёРµ СЃРїСЂР°Р№С‚Р° РЅР° Р»РёСЃС‚Рµ
         Rect r = s.textureRect;
         Vector2 size = new Vector2(r.width / s.texture.width, r.height / s.texture.height);
         Vector2 offset = new Vector2(r.x / s.texture.width, r.y / s.texture.height);
@@ -31,12 +32,27 @@ public class BonusCardDisplay : MonoBehaviour
         rend.material.mainTextureOffset = offset;
     }
 
-    public void ApplySpriteWithPropertyBlock(Sprite s, Renderer renderer)
+    void ApplyToQuadBack(Sprite s, Renderer rend)
     {
-        // 1. Создаем "блок свойств"
+        rend.material.mainTexture = s.texture;
+
+        // Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј UV-РєРѕРѕСЂРґРёРЅР°С‚С‹ РєРѕРЅРєСЂРµС‚РЅРѕРіРѕ СЃРїСЂР°Р№С‚Р° РІ Р°С‚Р»Р°СЃРµ
+        // РСЃРїРѕР»СЊР·СѓРµРј textureRect, С‡С‚РѕР±С‹ РЅР°Р№С‚Рё РїРѕР»РѕР¶РµРЅРёРµ СЃРїСЂР°Р№С‚Р° РЅР° Р»РёСЃС‚Рµ
+        Rect r = s.textureRect;
+        Vector2 size = new Vector2(r.width / s.texture.width, r.height / s.texture.height);
+        Vector2 offset = new Vector2(r.x / s.texture.width, r.y / s.texture.height);
+
+        rend.material.mainTextureScale = size;
+        rend.material.mainTextureOffset = offset;
+    }
+
+    /*public void ApplySpriteWithPropertyBlock(Sprite s, Renderer renderer)
+    {
+        renderer.material.mainTexture = s.texture;
+        // 1. РЎРѕР·РґР°РµРј "Р±Р»РѕРє СЃРІРѕР№СЃС‚РІ"
         MaterialPropertyBlock block = new MaterialPropertyBlock();
 
-        // 2. Рассчитываем координаты (как раньше)
+        // 2. Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ (РєР°Рє СЂР°РЅСЊС€Рµ)
         Rect r = s.textureRect;
         float texW = s.texture.width;
         float texH = s.texture.height;
@@ -48,13 +64,13 @@ public class BonusCardDisplay : MonoBehaviour
             r.y / texH
         );
 
-        // 3. Записываем данные в блок (имена свойств стандартные для Unity)
-        // _MainTex_ST — это стандартное имя для Tiling/Offset в шейдерах
+        // 3. Р—Р°РїРёСЃС‹РІР°РµРј РґР°РЅРЅС‹Рµ РІ Р±Р»РѕРє (РёРјРµРЅР° СЃРІРѕР№СЃС‚РІ СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рµ РґР»СЏ Unity)
+        // _MainTex_ST вЂ” СЌС‚Рѕ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРµ РёРјСЏ РґР»СЏ Tiling/Offset РІ С€РµР№РґРµСЂР°С…
         block.SetVector("_MainTex_ST", tilingOffset);
 
-        // 4. Применяем блок к рендереру
+        // 4. РџСЂРёРјРµРЅСЏРµРј Р±Р»РѕРє Рє СЂРµРЅРґРµСЂРµСЂСѓ
         renderer.SetPropertyBlock(block);
 
-        // ВАЖНО: Убедись, что в Renderer.sharedMaterial назначен твой ФАЙЛ материала рубашки
-    }
+        // Р’РђР–РќРћ: РЈР±РµРґРёСЃСЊ, С‡С‚Рѕ РІ Renderer.sharedMaterial РЅР°Р·РЅР°С‡РµРЅ С‚РІРѕР№ Р¤РђР™Р› РјР°С‚РµСЂРёР°Р»Р° СЂСѓР±Р°С€РєРё
+    }*/
 }

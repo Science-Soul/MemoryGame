@@ -1,48 +1,65 @@
-using UnityEngine;
-using UnityEditor; // Работает только в Editor
+п»їusing UnityEngine;
+using UnityEditor; // Р Р°Р±РѕС‚Р°РµС‚ С‚РѕР»СЊРєРѕ РІ Editor
 using System.IO;
 
 public class CardBaker : EditorWindow
 {
+    private static Material newMatBack;
+
     [MenuItem("Tools/Bake Cards to Prefabs")]
     public static void Bake()
     {
-        // 1. Выдели все сгенерированные карты на сцене
+        // 1. Р’С‹РґРµР»Рё РІСЃРµ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅС‹Рµ РєР°СЂС‚С‹ РЅР° СЃС†РµРЅРµ
         GameObject[] selectedCards = Selection.gameObjects;
 
         if (selectedCards.Length == 0)
         {
-            Debug.LogWarning("Сначала выдели объекты карт на сцене!");
+            Debug.LogWarning("РЎРЅР°С‡Р°Р»Р° РІС‹РґРµР»Рё РѕР±СЉРµРєС‚С‹ РєР°СЂС‚ РЅР° СЃС†РµРЅРµ!");
             return;
         }
 
         string folderPath = "Assets/BakedCards";
         if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
+        // РЎРѕР·РґР°РµРј РјР°С‚РµСЂРёР°Р» СЂСѓР±Р°С€РєРё РѕРґРёРЅ РЅР° РІСЃРµ РєР°СЂС‚С‹
+        Renderer renBack = selectedCards[0].transform.Find("BackQuad").GetComponent<Renderer>();
+        if (renBack != null)
+        {
+            // РљР»РѕРЅРёСЂСѓРµРј РјР°С‚РµСЂРёР°Р» Рё СЃРѕС…СЂР°РЅСЏРµРј РµРіРѕ РєР°Рє Р°СЃСЃРµС‚
+            newMatBack = new Material(renBack.sharedMaterial);
+            string matPath = $"{folderPath}/BackMaterials/{selectedCards[0].name}_Back_Mat.mat";
+            if (!Directory.Exists($"{folderPath}/BackMaterials")) Directory.CreateDirectory($"{folderPath}/BackMaterials");
+            AssetDatabase.CreateAsset(newMatBack, matPath);
+        }
+
         foreach (GameObject card in selectedCards)
         {
-            // 2. Создаем уникальный материал для этой карты, 
-            // иначе у всех префабов будет одна и та же последняя текстура.
+            // 2. РЎРѕР·РґР°РµРј СѓРЅРёРєР°Р»СЊРЅС‹Р№ РјР°С‚РµСЂРёР°Р» РґР»СЏ СЌС‚РѕР№ РєР°СЂС‚С‹, 
+            // РёРЅР°С‡Рµ Сѓ РІСЃРµС… РїСЂРµС„Р°Р±РѕРІ Р±СѓРґРµС‚ РѕРґРЅР° Рё С‚Р° Р¶Рµ РїРѕСЃР»РµРґРЅСЏСЏ С‚РµРєСЃС‚СѓСЂР°.
             Renderer renFace = card.transform.Find("FaceQuad").GetComponent<Renderer>();
+            Renderer currentRenBack = card.transform.Find("BackQuad").GetComponent<Renderer>();
             if (renFace != null)
             {
-                // Клонируем материал и сохраняем его как ассет
+                // РљР»РѕРЅРёСЂСѓРµРј РјР°С‚РµСЂРёР°Р» Рё СЃРѕС…СЂР°РЅСЏРµРј РµРіРѕ РєР°Рє Р°СЃСЃРµС‚
                 Material newMat = new Material(renFace.sharedMaterial);
-                string matPath = $"{folderPath}/Materials/{card.name}_Mat.mat";
-                if (!Directory.Exists($"{folderPath}/Materials")) Directory.CreateDirectory($"{folderPath}/Materials");
+                string matPath = $"{folderPath}/FaceMaterials/{card.name}_Mat.mat";
+                if (!Directory.Exists($"{folderPath}/FaceMaterials")) Directory.CreateDirectory($"{folderPath}/FaceMaterials");
                 AssetDatabase.CreateAsset(newMat, matPath);
 
-                // Назначаем сохраненный материал объекту
+                // РќР°Р·РЅР°С‡Р°РµРј СЃРѕС…СЂР°РЅРµРЅРЅС‹Р№ РјР°С‚РµСЂРёР°Р» РѕР±СЉРµРєС‚Сѓ
                 renFace.sharedMaterial = newMat;
+                currentRenBack.sharedMaterial = newMatBack;
             }
 
-            // 3. Сохраняем объект как префаб
+            
+
+            // 3. РЎРѕС…СЂР°РЅСЏРµРј РѕР±СЉРµРєС‚ РєР°Рє РїСЂРµС„Р°Р±
             string prefabPath = $"{folderPath}/{card.name}.prefab";
             PrefabUtility.SaveAsPrefabAssetAndConnect(card, prefabPath, InteractionMode.UserAction);
         }
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        Debug.Log("Карты успешно запечены в " + folderPath);
+        Debug.Log("РљР°СЂС‚С‹ СѓСЃРїРµС€РЅРѕ Р·Р°РїРµС‡РµРЅС‹ РІ " + folderPath);
     }
 }

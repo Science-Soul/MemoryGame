@@ -23,6 +23,7 @@ public class CollectionService : IInitializable, IDisposable
         _signalBus.Subscribe<BonusCollectedSignal>(OnBonusCollected);
         _signalBus.Subscribe<DeckUnlockedSignal>(OnDeckUnlocked);
         _currentSave = _saveStorage.Load();
+
         foreach (var deck in _allDecks)
         {
             foreach (var card in deck.bonusCards)
@@ -77,16 +78,21 @@ public class CollectionService : IInitializable, IDisposable
     public BonusCard GetNextLockedCard()
     {
         // Ищем в колодах первую попавшуюся закрытую карту
-        var activeDeck = _allDecks.FirstOrDefault(d => !d.IsComplete);
+        if (_allDecks.Count != 0)
+        {
+            var activeDeck = _allDecks.FirstOrDefault(d => !d.IsComplete);
 
-        if (activeDeck == null)
-        {
-            Debug.Log("<color=orange>[Collection] Все колоды уже собраны!</color>");
-            return null;
+
+            if (activeDeck == null)
+            {
+                Debug.Log("<color=orange>[Collection] Все колоды уже собраны!</color>");
+                return null;
+            }
+            else
+            {
+                return activeDeck.bonusCards.FirstOrDefault(c => !c.IsUnlocked);
+            }
         }
-        else
-        {
-            return activeDeck.bonusCards.FirstOrDefault(c => !c.IsUnlocked);
-        }
+        return null;
     }
 }
