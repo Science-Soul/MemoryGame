@@ -18,6 +18,9 @@ public class BonusItem : MonoBehaviour
     {
         _myCard = card; // Сообщаем ему бонусную карту при инициализации
         Debug.Log("Бонусная карта " + _myCard.name);
+
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     // Инициализация: бонус сам создает свой токен и связывает его с картой/менеджером
@@ -50,7 +53,12 @@ public class BonusItem : MonoBehaviour
         }
         finally
         {
-            if (this != null) Destroy(gameObject);
+            if (this != null)
+            {
+                gameObject.GetComponent<ParticleSystem>().Stop();
+                Destroy(this);
+            }
+            //if (this != null) Destroy(gameObject);
         }
     }
     [Inject] private SignalBus _signalBus;
@@ -58,7 +66,10 @@ public class BonusItem : MonoBehaviour
     {
         // Просто "стреляем" сигналом и сообщаем, какая бонусная карта открыта
         _signalBus.Fire(new BonusCollectedSignal { unlockedCard = _myCard });
-        Destroy(gameObject);
+        if (gameObject != null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnDestroy()
