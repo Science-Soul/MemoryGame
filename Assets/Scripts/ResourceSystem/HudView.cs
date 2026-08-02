@@ -1,4 +1,4 @@
-using Assets.Scripts;
+ï»¿using Assets.Scripts;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -25,33 +25,33 @@ public class HudView : MonoBehaviour
 
     private void Start()
     {
-        // Ïîäïèñêà ÷åðåç R3: àâòîìàòè÷åñêè îáíîâëÿåò òåêñò ïðè èçìåíåíèè çíà÷åíèÿ
+        // ÐŸÐ¾Ð´Ð¿Ð¸ÑÐºÐ° Ñ‡ÐµÑ€ÐµÐ· R3: Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸ Ð¾Ð±Ð½Ð¾Ð²Ð»ÑÐµÑ‚ Ñ‚ÐµÐºÑÑ‚ Ð¿Ñ€Ð¸ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ð¸ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ
         _model.Gold
-            .Subscribe(value => goldText.text = $"Gold: {value}")
+            .Subscribe(value => goldText.text = $"{value}")
             .AddTo(_disposables);
 
         _model.Food
-            .Subscribe(value => foodText.text = $"Food: {value}")
+            .Subscribe(value => foodText.text = $"{value}")
             .AddTo(_disposables);
 
         _model.Materials
-            .Subscribe(value => materialsText.text = $"Materials: {value}")
+            .Subscribe(value => materialsText.text = $"{value}")
             .AddTo(_disposables);
 
         _model.Prediction          
-            .Subscribe(value => predictionText.text = $"Prediction: {value}")
+            .Subscribe(value => predictionText.text = $"{value}")
             .AddTo(_disposables);
 
         _model.Science
-            .Subscribe(value => scienceText.text = $"Science: {value}")
+            .Subscribe(value => scienceText.text = $"{value}")
             .AddTo(_disposables);
 
         _model.Seasons
-            .Subscribe(value => seasonsText.text = $"Seasons: {value}")
+            .Subscribe(value => seasonsText.text = $"{value}")
             .AddTo(_disposables);
 
         _model.Mana
-            .Subscribe(value => manaText.text = $"Mana: {value}")
+            .Subscribe(value => manaText.text = $"{value}")
             .AddTo(_disposables);
     }
 
