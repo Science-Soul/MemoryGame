@@ -21,6 +21,8 @@ namespace Assets.Scripts
             // Создаем префаб ПОСЛЕ завершения всех инсталлеров
             var hudInstance = _container.InstantiatePrefab(_hudPrefab);
 
+            _container.Bind<GameObject>().WithId("MainHUD").FromInstance(hudInstance);
+
             Debug.Log("<color=green>[HudStarter]</color> HUD создан безопасно!");
         }
     }

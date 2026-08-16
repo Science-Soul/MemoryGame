@@ -14,7 +14,7 @@ namespace Assets.Scripts
             Container.BindInstance(levelSettings).AsSingle();
             Container.Bind<ResourceModel>().AsSingle().NonLazy();
             Container.Bind<LevelUnlockModel>().AsSingle().NonLazy();
-            Container.BindInstance(hudPrefab).WhenInjectedInto<HudStarter>();
+            Container.BindInstance(hudPrefab).AsSingle();
             Container.BindInterfacesTo<HudStarter>().AsSingle();
         }
     }

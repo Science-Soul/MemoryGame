@@ -13,6 +13,10 @@ using Assets.Scripts;
 
 public class Desk : MonoBehaviour
 {
+    [Inject(Id = "MainHUD")]
+    private GameObject _hudInstance;
+    private HudExp _hudExp;
+
     [SerializeField] UIManager uiManager;
     [SerializeField] Deck _currentDeck;
     [SerializeField] GameObject[] cardPrefabs;
@@ -58,8 +62,10 @@ public class Desk : MonoBehaviour
 
     private void Start()
     {
+        _hudExp = _hudInstance.GetComponentInChildren<HudExp>();
+
         GridInit();
-        uiManager.UpdateUI();
+        _hudExp.UpdateUI();
         uiManager.levelObjectives.Init("Находи по " + numberOfCardsToSearch + " одинаковые карты");
         
     }
@@ -197,7 +203,7 @@ public class Desk : MonoBehaviour
 
                 int earnedExp = EXP_FOR_LEVEL_COMPLETE * currentDifficulty.ExpMultiplier;
                 ExpAdd(earnedExp);
-                uiManager.UpdateUI();
+                _hudExp.UpdateUI();
                 uiManager.winScreen.ShowWinScreen(earnedExp, bonus);
 
                 var data = _storage.Load();
@@ -224,7 +230,7 @@ public class Desk : MonoBehaviour
 
     void OnExpAdded()
     {
-        uiManager.UpdateUI();
+        _hudExp.UpdateUI();
     }
 
     [Inject] private DiContainer _container;

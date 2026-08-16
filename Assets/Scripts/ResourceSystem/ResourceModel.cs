@@ -17,6 +17,7 @@ namespace Assets.Scripts
         public BindableReactiveProperty<int> Prediction { get; }
         public BindableReactiveProperty<int> Mana { get; }
 
+
         public enum LevelResourceType
         {
             GOLD,
