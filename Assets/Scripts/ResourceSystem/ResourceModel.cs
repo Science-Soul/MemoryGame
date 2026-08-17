@@ -44,14 +44,24 @@ namespace Assets.Scripts
             Mana = new BindableReactiveProperty<int>(data.Mana);
 
             // Авто-сохранение при каждом изменении (пропускаем сохранение при загрузке)
-            int seconds = 10;
+            int seconds = 5;
+            /*
             Gold.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
             Food.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
             Materials.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
             Seasons.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
             Science.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
             Prediction.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
-            Mana.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Mana.Skip(1).Debounce(TimeSpan.FromSeconds(seconds)).Subscribe(val => SaveProgress()).AddTo(_disposables);*/
+
+            Gold.Skip(1).ThrottleLast(TimeSpan.FromSeconds(seconds)).ObserveOnMainThread().Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Food.Skip(1).ThrottleLast(TimeSpan.FromSeconds(seconds)).ObserveOnMainThread().Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Materials.Skip(1).ThrottleLast(TimeSpan.FromSeconds(seconds)).ObserveOnMainThread().Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Seasons.Skip(1).ThrottleLast(TimeSpan.FromSeconds(seconds)).ObserveOnMainThread().Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Science.Skip(1).ThrottleLast(TimeSpan.FromSeconds(seconds)).ObserveOnMainThread().Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Prediction.Skip(1).ThrottleLast(TimeSpan.FromSeconds(seconds)).ObserveOnMainThread().Subscribe(val => SaveProgress()).AddTo(_disposables);
+            Mana.Skip(1).ThrottleLast(TimeSpan.FromSeconds(seconds)).ObserveOnMainThread().Subscribe(val => SaveProgress()).AddTo(_disposables);
+
         }
 
         private void SaveProgress()

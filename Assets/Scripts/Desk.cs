@@ -62,9 +62,9 @@ public class Desk : MonoBehaviour
 
     private void Start()
     {
-        _hudExp = _hudInstance.GetComponentInChildren<HudExp>();
 
         GridInit();
+        _hudExp = _hudInstance.GetComponentInChildren<HudExp>();
         _hudExp.UpdateUI();
         uiManager.levelObjectives.Init("Находи по " + numberOfCardsToSearch + " одинаковые карты");
         
