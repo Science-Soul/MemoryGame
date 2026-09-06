@@ -32,6 +32,17 @@ public class LevelUnlockModel
         return true;
     }
 
+    public int NumberOfCardsInDeckComplete(LevelSettings level)
+    {
+        //return level.bonusCardDeckSO.bonusCards.Count == _saveData.UnlockedCardNames.Count;
+        int numberOfCardsInDeck = level.bonusCardDeckSO.bonusCards.Count;
+        if (numberOfCardsInDeck != 0)
+        {
+            return numberOfCardsInDeck - level.bonusCardDeckSO.bonusCards.Count(c => _saveData.UnlockedCardNames.Contains(c.name));
+        }
+        return 0;
+    }
+
     public bool TryUnlockLevel(LevelSettings level)
     {
         if (IsUnlocked(level))

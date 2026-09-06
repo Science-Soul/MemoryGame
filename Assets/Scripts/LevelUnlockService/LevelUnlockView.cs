@@ -19,7 +19,7 @@ public class LevelUnlockView : MonoBehaviour
     void Start()
     {
         _unlockLevelText = _unlockLevelButton.GetComponentInChildren<TMP_Text>();
-        _unlockLevelText.text = string.Join("\n", _levelSettings.resourcesCost.Select(x => $"{x.type}: {x.amount}"));
+        //_unlockLevelText.text = string.Join("\n", _levelSettings.resourcesCost.Select(x => $"{x.type}: {x.amount}"));
         _unlockLevelButton.onClick.AddListener(() => OnClick?.Invoke());
     }
 
@@ -48,6 +48,11 @@ public class LevelUnlockView : MonoBehaviour
         {
             _unlockLevelText.color = Color.red;
         }
+    }
+
+    public void SetText(string text)
+    {
+        _unlockLevelText.text = text;
     }
 
     public LevelSettings GetLevelSettings()

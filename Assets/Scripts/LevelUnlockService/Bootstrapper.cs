@@ -25,6 +25,6 @@ public class Bootstrapper : MonoBehaviour
 
     private void OnDestroy()
     {
-        //_presenter.Dispose();
+        
     }
 }
